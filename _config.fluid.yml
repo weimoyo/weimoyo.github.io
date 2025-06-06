@@ -97,6 +97,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: fluid
+banner_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/手绘彩虹.png
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
