@@ -3,17 +3,22 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
+title: "Zone of lix"
+subtitle: "透着光的缝隙"
 description: ''
-keywords:
-author: John Doe
+keywords: [
+  '记录',
+  '思考',
+  '成长',
+  '连接',
+]
+author: lix
 language: zh-CN
-timezone: ''
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: http://lixiang.us.kg
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -97,7 +102,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: fluid
-banner_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/手绘彩虹.png
+theme_config: _config.fluid.yml
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -105,3 +110,19 @@ deploy:
   type: git
   repository: git@github.com:weimoyo/weimoyo.github.io.git
   branch: main
+
+# Fluid Theme configuration
+navbar:
+  blog_title: "透着光的缝隙"
+index:
+  banner_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/晨辉下的古堡.jpg
+  slogan:
+    enable: true
+    text: "永远保持与世界最积极、最热烈的联系"
+
+about:
+  avatar: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3.jpg
+  name: "lix"
+  intro: "我要以最热烈的姿态，拥抱世界"
+  icons:
+  - { class: 'iconfont icon-github-fill', link: 'https://github.com/weimoyo', tip: 'GitHub' }
