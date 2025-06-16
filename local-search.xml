@@ -4,7 +4,67 @@
   
   
   <entry>
-    <title>拒绝浑浑噩噩</title>
+    <title>🕷️markdown语法笔记</title>
+    <link href="/2025/06/16/markdown%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/"/>
+    <url>/2025/06/16/markdown%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="markdown语法笔记"><a href="#markdown语法笔记" class="headerlink" title="markdown语法笔记"></a>markdown语法笔记</h1><h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><ol><li>行内链接：<code>[显示文本](链接地址 &quot;可选标题&quot;)</code></li><li>引用式链接：<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">[<span class="hljs-string">显示文本</span>][<span class="hljs-symbol">链接标识</span>]<br><br>[<span class="hljs-symbol">链接标识</span>]: <span class="hljs-link">链接地址 &quot;可选标题&quot;</span><br></code></pre></td></tr></table></figure></li><li>直接显示URL：<code>&lt;https://markdown.org&gt;</code></li><li>图片链接：<code>[![图片替代文本](图片URL)](链接地址)</code></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+      <category>markdown</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>markdown</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>🐙x-cmd实践记录</title>
+    <link href="/2025/06/16/x-cmd%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/"/>
+    <url>/2025/06/16/x-cmd%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/</url>
+    
+    <content type="html"><![CDATA[<h1 id="x-cmd实践记录"><a href="#x-cmd实践记录" class="headerlink" title="x-cmd实践记录"></a><a href="https://cn.x-cmd.com/">x-cmd</a>实践记录</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在powershell里安装，参考<a href="https://cn.x-cmd.com/start/powershell">https://cn.x-cmd.com/start/powershell</a>，只需要运行一条指令</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">[<span class="hljs-type">System.Text.Encoding</span>]::GetEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>).GetString(<span class="hljs-variable">$</span>(<span class="hljs-built_in">Invoke-WebRequest</span> <span class="hljs-literal">-Uri</span> <span class="hljs-string">&quot;https://get.x-cmd.com/x-cmd.ps1&quot;</span>).RawContentStream.ToArray()) | <span class="hljs-built_in">Invoke-Expression</span><br></code></pre></td></tr></table></figure><h2 id="更改主题"><a href="#更改主题" class="headerlink" title="更改主题"></a>更改主题</h2><ol><li><code>x starship</code>和<code>x ohmyposh</code>是两个主题模块，直接运行即可打开TUI交互选择。</li><li>需要安装<a href="https://www.nerdfonts.com/font-downloads">Nerd Fonts</a>，否则图标无法正常显示。推荐选择（gemini 2.5 pro），<ul><li>FiraCode Nerd Font (非常流行，支持编程连字)</li><li>JetBrains Mono Nerd Font (JetBrains IDE 的默认字体，非常清晰)</li><li>MesloLGS NF (Powerlevel10k 主题官方推荐，兼容性极佳)</li></ul></li><li>效果，<img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/starship%E6%95%88%E6%9E%9C.png" alt="starship效果"></li></ol><h2 id="使用大模型，以Deepseek为例"><a href="#使用大模型，以Deepseek为例" class="headerlink" title="使用大模型，以Deepseek为例"></a>使用大模型，以Deepseek为例</h2><ol><li><code>x deepseek init</code>进行交互式配置，只需要提供key。</li><li><code>a:ds</code>和<code>a:dsr1</code>使用<ul><li>对话<code>a:ds &quot;用户提示词&quot;</code></li><li><code>a:ds -f 本地文件 &quot;用户提示词&quot;</code></li></ul></li><li><code>a:ds -f 本地文件 &quot;用户提示词&quot; &gt;&gt; ds.md 2&gt;&amp;1</code>可以输出到文档里，但是中文会乱码<ul><li><strong>原因：</strong> PowerShell 7 查看 <code>[System.Console]::OutputEncoding</code> 的设置，发现是 GBK。于是，它用 GBK 的规则去“错误地”解码了这串 UTF-8 的字节流，在内存中得到了一堆乱码字符串。</li><li><strong>解决方法：</strong>  <ol><li>修改powershell配置文件 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">notepad <span class="hljs-variable">$PROFILE</span><br>如果不存在，新建<br><span class="hljs-built_in">New-Item</span> <span class="hljs-literal">-Path</span> <span class="hljs-variable">$PROFILE</span> <span class="hljs-literal">-ItemType</span> File <span class="hljs-literal">-Force</span><br></code></pre></td></tr></table></figure>在最后一行添加<code>[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8</code></li><li>使用管道<code>a:ds -f 本地文件 &quot;用户提示词&quot; 2&gt;&amp;1 | Out-File -FilePath ds.md -Encoding utf8</code>(尚未验证，不过原理可信)</li></ol></li></ul></li></ol><h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>实践指南</category>
+      
+      <category>大东西</category>
+      
+      <category>x-cmd</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>记录</tag>
+      
+      <tag>工具用法</tag>
+      
+      <tag>实践指南</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>远程连接win11主机</title>
     <link href="/2025/06/09/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5win11%E4%B8%BB%E6%9C%BA/"/>
     <url>/2025/06/09/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5win11%E4%B8%BB%E6%9C%BA/</url>
     
@@ -13,18 +73,20 @@
     
     <categories>
       
-      <category>基础</category>
+      <category>实践指南</category>
       
-      <category>工具用法</category>
+      <category>小玩意</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>工具</tag>
+      <tag>记录</tag>
       
-      <tag>笔记</tag>
+      <tag>工具用法</tag>
+      
+      <tag>实践指南</tag>
       
     </tags>
     

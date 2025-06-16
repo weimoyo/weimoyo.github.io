@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png">
   <link rel="icon" href="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png">
   
-    <link rel="canonical" href="http://lixiang.us.kg/2025/06/09/远程连接win11主机/"/>
+    <link rel="canonical" href="http://lixiang.us.kg/2025/06/16/x-cmd实践记录/"/>
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -21,26 +21,26 @@
   <meta name="author" content="lix">
   <meta name="keywords" content="记录,思考,成长,连接">
   
-    <meta name="description" content="远程连接win11主机ssh（仅命令行）坑 服务端防火墙要配置入站规则，开放22端口。  客户端的公钥应该放在哪。 ChatGPT o3:  管理员账户必须把公钥写入 C:\ProgramData\ssh\administrators_authorized_keys​1。非管理员账户用 %USERPROFILE%\.ssh\authorized_keys​2。  事实证明这一点不准确，FixedI">
+    <meta name="description" content="x-cmd实践记录安装在powershell里安装，参考https:&#x2F;&#x2F;cn.x-cmd.com&#x2F;start&#x2F;powershell，只需要运行一条指令 1[System.Text.Encoding]::GetEncoding(&quot;utf-8&quot;).GetString($(Invoke-WebRequest -Uri &quot;https:&#x2F;&#x2F;get.x-cmd.com&#x2F;x-cmd">
 <meta property="og:type" content="article">
-<meta property="og:title" content="远程连接win11主机">
-<meta property="og:url" content="http://lixiang.us.kg/2025/06/09/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5win11%E4%B8%BB%E6%9C%BA/index.html">
+<meta property="og:title" content="🐙x-cmd实践记录">
+<meta property="og:url" content="http://lixiang.us.kg/2025/06/16/x-cmd%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Zone of lix">
-<meta property="og:description" content="远程连接win11主机ssh（仅命令行）坑 服务端防火墙要配置入站规则，开放22端口。  客户端的公钥应该放在哪。 ChatGPT o3:  管理员账户必须把公钥写入 C:\ProgramData\ssh\administrators_authorized_keys​1。非管理员账户用 %USERPROFILE%\.ssh\authorized_keys​2。  事实证明这一点不准确，FixedI">
+<meta property="og:description" content="x-cmd实践记录安装在powershell里安装，参考https:&#x2F;&#x2F;cn.x-cmd.com&#x2F;start&#x2F;powershell，只需要运行一条指令 1[System.Text.Encoding]::GetEncoding(&quot;utf-8&quot;).GetString($(Invoke-WebRequest -Uri &quot;https:&#x2F;&#x2F;get.x-cmd.com&#x2F;x-cmd">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E9%82%A3%E5%B9%B4%E5%A4%8F%E5%A4%A9.jpg">
-<meta property="article:published_time" content="2025-06-09T06:42:36.000Z">
-<meta property="article:modified_time" content="2025-06-09T06:42:36.000Z">
+<meta property="og:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%AB%A0%E9%B1%BC.jpg">
+<meta property="article:published_time" content="2025-06-16T03:02:01.000Z">
+<meta property="article:modified_time" content="2025-06-16T03:02:01.000Z">
 <meta property="article:author" content="lix">
 <meta property="article:tag" content="记录">
 <meta property="article:tag" content="工具用法">
 <meta property="article:tag" content="实践指南">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E9%82%A3%E5%B9%B4%E5%A4%8F%E5%A4%A9.jpg">
+<meta name="twitter:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%AB%A0%E9%B1%BC.jpg">
   
   
   
-  <title>远程连接win11主机 - Zone of lix</title>
+  <title>🐙x-cmd实践记录 - Zone of lix</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,13 +200,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%87%B9%E9%9D%A2%E5%B1%B1.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E6%82%A0%E7%84%B6%E5%B0%8F%E8%88%B9.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="远程连接win11主机"></span>
+            <span id="subtitle" data-typed-text="🐙x-cmd实践记录"></span>
           
         </div>
 
@@ -222,8 +222,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-09 14:42" pubdate>
-          2025年6月9日 下午
+        <time datetime="2025-06-16 11:02" pubdate>
+          2025年6月16日 上午
         </time>
       </span>
     
@@ -234,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          268 字
+          355 字
         
       </span>
     
@@ -316,17 +316,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="大东西"
         id="heading-a19c64d6701b0a31080b762326399888" role="tab" data-toggle="collapse" href="#collapse-a19c64d6701b0a31080b762326399888"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         大东西
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-a19c64d6701b0a31080b762326399888"
+      <div class="category-collapse collapse show" id="collapse-a19c64d6701b0a31080b762326399888"
            role="tabpanel" aria-labelledby="heading-a19c64d6701b0a31080b762326399888">
         
         
@@ -343,17 +343,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="x-cmd"
         id="heading-b69bfbf936a9b03c6a831f53d6073be2" role="tab" data-toggle="collapse" href="#collapse-b69bfbf936a9b03c6a831f53d6073be2"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         x-cmd
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-b69bfbf936a9b03c6a831f53d6073be2"
+      <div class="category-collapse collapse show" id="collapse-b69bfbf936a9b03c6a831f53d6073be2"
            role="tabpanel" aria-labelledby="heading-b69bfbf936a9b03c6a831f53d6073be2">
         
         
@@ -365,7 +365,7 @@
       
         <a href="/2025/06/16/x-cmd%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/" title="🐙x-cmd实践记录"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">🐙x-cmd实践记录</span>
         </a>
       
@@ -384,17 +384,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="小玩意"
         id="heading-286d92e7522dc189703937ecaf166940" role="tab" data-toggle="collapse" href="#collapse-286d92e7522dc189703937ecaf166940"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         小玩意
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-286d92e7522dc189703937ecaf166940"
+      <div class="category-collapse collapse " id="collapse-286d92e7522dc189703937ecaf166940"
            role="tabpanel" aria-labelledby="heading-286d92e7522dc189703937ecaf166940">
         
         
@@ -406,7 +406,7 @@
       
         <a href="/2025/06/09/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5win11%E4%B8%BB%E6%9C%BA/" title="远程连接win11主机"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">远程连接win11主机</span>
         </a>
       
@@ -433,36 +433,42 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">远程连接win11主机</h1>
+            <h1 id="seo-header">🐙x-cmd实践记录</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="远程连接win11主机"><a href="#远程连接win11主机" class="headerlink" title="远程连接win11主机"></a>远程连接win11主机</h1><h2 id="ssh（仅命令行）"><a href="#ssh（仅命令行）" class="headerlink" title="ssh（仅命令行）"></a>ssh（仅命令行）</h2><h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><ul>
-<li><p>服务端防火墙要配置<strong>入站规则</strong>，开放22端口。</p>
-</li>
-<li><p>客户端的公钥应该放在哪。</p>
-<p><strong>ChatGPT o3:</strong></p>
-<blockquote>
-<p><strong>管理员账户</strong>必须把公钥写入 <code>C:\ProgramData\ssh\administrators_authorized_keys</code><a id="note1">​<sup>1</sup></a>。<br><strong>非管理员账户</strong>用 <code>%USERPROFILE%\.ssh\authorized_keys</code><a id="note2">​<sup>2</sup></a>。</p>
-</blockquote>
-<p>事实证明这一点不准确，FixedIdiot上的weimo账户不被认为是管理员账户，但是放在<a href="#note2">2</a>没有效果，放在<a href="#note1">1</a>却可以。我估计是因为判断标准是<strong>用户组</strong>，weimo在Administrators用户组里。</p>
-</li>
+                <h1 id="x-cmd实践记录"><a href="#x-cmd实践记录" class="headerlink" title="x-cmd实践记录"></a><a target="_blank" rel="noopener" href="https://cn.x-cmd.com/">x-cmd</a>实践记录</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在powershell里安装，参考<a target="_blank" rel="noopener" href="https://cn.x-cmd.com/start/powershell">https://cn.x-cmd.com/start/powershell</a>，只需要运行一条指令</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">[<span class="hljs-type">System.Text.Encoding</span>]::GetEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>).GetString(<span class="hljs-variable">$</span>(<span class="hljs-built_in">Invoke-WebRequest</span> <span class="hljs-literal">-Uri</span> <span class="hljs-string">&quot;https://get.x-cmd.com/x-cmd.ps1&quot;</span>).RawContentStream.ToArray()) | <span class="hljs-built_in">Invoke-Expression</span><br></code></pre></td></tr></table></figure>
+<h2 id="更改主题"><a href="#更改主题" class="headerlink" title="更改主题"></a>更改主题</h2><ol>
+<li><code>x starship</code>和<code>x ohmyposh</code>是两个主题模块，直接运行即可打开TUI交互选择。</li>
+<li>需要安装<a target="_blank" rel="noopener" href="https://www.nerdfonts.com/font-downloads">Nerd Fonts</a>，否则图标无法正常显示。推荐选择（gemini 2.5 pro），<ul>
+<li>FiraCode Nerd Font (非常流行，支持编程连字)</li>
+<li>JetBrains Mono Nerd Font (JetBrains IDE 的默认字体，非常清晰)</li>
+<li>MesloLGS NF (Powerlevel10k 主题官方推荐，兼容性极佳)</li>
 </ul>
-<h2 id="RDP（微软远程连接，图形化界面）"><a href="#RDP（微软远程连接，图形化界面）" class="headerlink" title="RDP（微软远程连接，图形化界面）"></a>RDP（微软远程连接，图形化界面）</h2><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
-<li><p><strong>Win11 服务器端</strong></p>
-<p> “设置 → 系统 → 远程桌面 → 打开”，记下计算机名并确认用户在“<strong>远程桌面用户</strong>”名单内。</p>
 </li>
-<li><p><strong>Win10 客户端</strong><br> 运行 <code>mstsc</code>​ → 输入服务器名&#x2F;IP:PORT。</p>
+<li>效果，<img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/starship%E6%95%88%E6%9E%9C.png" srcset="/img/loading.gif" lazyload alt="starship效果"></li>
+</ol>
+<h2 id="使用大模型，以Deepseek为例"><a href="#使用大模型，以Deepseek为例" class="headerlink" title="使用大模型，以Deepseek为例"></a>使用大模型，以Deepseek为例</h2><ol>
+<li><code>x deepseek init</code>进行交互式配置，只需要提供key。</li>
+<li><code>a:ds</code>和<code>a:dsr1</code>使用<ul>
+<li>对话<code>a:ds &quot;用户提示词&quot;</code></li>
+<li><code>a:ds -f 本地文件 &quot;用户提示词&quot;</code></li>
+</ul>
 </li>
-<li><p><strong>Tips</strong></p>
-<ul>
-<li>要想校园网可以访问实验室网络（校园网的内网）内的主机，则需要配置一下端口映射3389、TCP协议。</li>
-<li>与其他远程桌面、多端协同的工具可能会产生冲突，例如同时Mouse without Boarders会导致鼠标消失。</li>
+<li><code>a:ds -f 本地文件 &quot;用户提示词&quot; &gt;&gt; ds.md 2&gt;&amp;1</code>可以输出到文档里，但是中文会乱码<ul>
+<li><strong>原因：</strong> PowerShell 7 查看 <code>[System.Console]::OutputEncoding</code> 的设置，发现是 GBK。于是，它用 GBK 的规则去“错误地”解码了这串 UTF-8 的字节流，在内存中得到了一堆乱码字符串。</li>
+<li><strong>解决方法：</strong>  <ol>
+<li>修改powershell配置文件 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">notepad <span class="hljs-variable">$PROFILE</span><br>如果不存在，新建<br><span class="hljs-built_in">New-Item</span> <span class="hljs-literal">-Path</span> <span class="hljs-variable">$PROFILE</span> <span class="hljs-literal">-ItemType</span> File <span class="hljs-literal">-Force</span><br></code></pre></td></tr></table></figure>
+在最后一行添加<code>[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8</code></li>
+<li>使用管道<code>a:ds -f 本地文件 &quot;用户提示词&quot; 2&gt;&amp;1 | Out-File -FilePath ds.md -Encoding utf8</code>(尚未验证，不过原理可信)</li>
+</ol>
+</li>
 </ul>
 </li>
 </ol>
-
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
                 
               </div>
             
@@ -485,8 +491,15 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/%E5%B0%8F%E7%8E%A9%E6%84%8F/" class="category-chain-item">小玩意</a>
+  <a href="/categories/%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/%E5%A4%A7%E4%B8%9C%E8%A5%BF/" class="category-chain-item">大东西</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/%E5%A4%A7%E4%B8%9C%E8%A5%BF/x-cmd/" class="category-chain-item">x-cmd</a>
+  
+  
+
   
 
   
@@ -518,8 +531,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>远程连接win11主机</div>
-      <div>http://lixiang.us.kg/2025/06/09/远程连接win11主机/</div>
+      <div>🐙x-cmd实践记录</div>
+      <div>http://lixiang.us.kg/2025/06/16/x-cmd实践记录/</div>
     </div>
     <div class="license-meta">
       
@@ -531,7 +544,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月9日</div>
+          <div>2025年6月16日</div>
         </div>
       
       
@@ -563,9 +576,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/16/x-cmd%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/" title="🐙x-cmd实践记录">
+                      <a href="/2025/06/16/markdown%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/" title="🕷️markdown语法笔记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">🐙x-cmd实践记录</span>
+                        <span class="hidden-mobile">🕷️markdown语法笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -573,8 +586,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/06/%E4%B8%8D%E6%83%B3%E5%B9%B2%E6%B4%BB%EF%BC%8C%E8%B6%81%E7%9D%80%E6%96%B0%E9%B2%9C%E5%8A%B2%E5%86%8D%E5%86%99%E7%82%B9%E4%B8%9C%E8%A5%BF/" title="不想干活，趁着新鲜劲再写点东西">
-                        <span class="hidden-mobile">不想干活，趁着新鲜劲再写点东西</span>
+                      <a href="/2025/06/09/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5win11%E4%B8%BB%E6%9C%BA/" title="远程连接win11主机">
+                        <span class="hidden-mobile">远程连接win11主机</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
