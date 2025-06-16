@@ -1,8 +1,9 @@
 ---
 title: 拒绝浑浑噩噩
 date: 2025-06-09 14:42:36
-categories: [杂谈, 日志]
-tags: [杂谈, 日志, 记录, 随笔]
+updated: 2025-06-09 14:42:36
+categories: [基础, 工具用法]
+tags: [工具, 笔记]
 index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E9%82%A3%E5%B9%B4%E5%A4%8F%E5%A4%A9.jpg
 banner_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%87%B9%E9%9D%A2%E5%B1%B1.jpg
 ---
@@ -20,7 +21,7 @@ banner_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%87%B9%
   >**管理员账户**必须把公钥写入 `C:\ProgramData\ssh\administrators_authorized_keys`<a id="note1">​<sup>1</sup></a>。  
   >**非管理员账户**用 `%USERPROFILE%\.ssh\authorized_keys`<a id="note2">​<sup>2</sup></a>。
 
-  事实证明这一点不准确，FixedIdiot上的weimo账户不被认为是管理员账户，但是放在[2](#note2)没有效果，放在[1](#note1)却可以。我估计是因为判断标准是**用户组**，weimo在Administrators用户组里。[^1][^1]:这是脚注。
+  事实证明这一点不准确，FixedIdiot上的weimo账户不被认为是管理员账户，但是放在[2](#note2)没有效果，放在[1](#note1)却可以。我估计是因为判断标准是**用户组**，weimo在Administrators用户组里。
 
 ## RDP（微软远程连接，图形化界面）
 
@@ -35,7 +36,3 @@ banner_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%87%B9%
 
     - 要想校园网可以访问实验室网络（校园网的内网）内的主机，则需要配置一下端口映射3389、TCP协议。
     - 与其他远程桌面、多端协同的工具可能会产生冲突，例如同时Mouse without Boarders会导致鼠标消失。
-
-# 拒绝浑浑噩噩
-
-昨天起了这样一个标题，准备大书特书，但最终也没能写下去，而是搞了
