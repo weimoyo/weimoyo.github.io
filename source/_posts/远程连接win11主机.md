@@ -1,9 +1,9 @@
 ---
-title: 拒绝浑浑噩噩
+title: 远程连接win11主机
 date: 2025-06-09 14:42:36
 updated: 2025-06-09 14:42:36
-categories: [基础, 工具用法]
-tags: [工具, 笔记]
+categories: [实践指南, 小玩意]
+tags: [工具用法, 实践指南, 记录]
 index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E9%82%A3%E5%B9%B4%E5%A4%8F%E5%A4%A9.jpg
 banner_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%87%B9%E9%9D%A2%E5%B1%B1.jpg
 ---
