@@ -41,5 +41,3 @@ index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%AB%A0%E
          ```
          在最后一行添加```[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8```
       2. 使用管道```a:ds -f 本地文件 "用户提示词" 2>&1 | Out-File -FilePath ds.md -Encoding utf8```(尚未验证，不过原理可信)
-
-## 

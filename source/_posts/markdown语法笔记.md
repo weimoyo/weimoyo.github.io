@@ -22,3 +22,9 @@ index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E
    ```
 3. 直接显示URL：```<https://markdown.org>```
 4. 图片链接：```[![图片替代文本](图片URL)](链接地址)```
+
+### emoji
+
+* ```win + .```打开系统自带的emoji搜索
+* [emoji中文网](https://www.emojiall.com/zh-hans)等复制粘贴
+* 使用标签符号简码，需要安装Markdown Emoji插件，语法```:joy:```，效果:joy:。（此方法hexo不支持）
