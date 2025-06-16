@@ -5,30 +5,26 @@
   
   <entry>
     <title>拒绝浑浑噩噩</title>
-    <link href="/2025/06/09/%E6%8B%92%E7%BB%9D%E6%B5%91%E6%B5%91%E5%99%A9%E5%99%A9/"/>
-    <url>/2025/06/09/%E6%8B%92%E7%BB%9D%E6%B5%91%E6%B5%91%E5%99%A9%E5%99%A9/</url>
+    <link href="/2025/06/09/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5win11%E4%B8%BB%E6%9C%BA/"/>
+    <url>/2025/06/09/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5win11%E4%B8%BB%E6%9C%BA/</url>
     
-    <content type="html"><![CDATA[<h1 id="远程连接win11主机"><a href="#远程连接win11主机" class="headerlink" title="远程连接win11主机"></a>远程连接win11主机</h1><h2 id="ssh（仅命令行）"><a href="#ssh（仅命令行）" class="headerlink" title="ssh（仅命令行）"></a>ssh（仅命令行）</h2><h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><ul><li><p>服务端防火墙要配置<strong>入站规则</strong>，开放22端口。</p></li><li><p>客户端的公钥应该放在哪。</p><p><strong>ChatGPT o3:</strong></p><blockquote><p><strong>管理员账户</strong>必须把公钥写入 <code>C:\ProgramData\ssh\administrators_authorized_keys</code><a id="note1">​<sup>1</sup></a>。<br><strong>非管理员账户</strong>用 <code>%USERPROFILE%\.ssh\authorized_keys</code><a id="note2">​<sup>2</sup></a>。</p></blockquote><p>事实证明这一点不准确，FixedIdiot上的weimo账户不被认为是管理员账户，但是放在<a href="#note2">2</a>没有效果，放在<a href="#note1">1</a>却可以。我估计是因为判断标准是<strong>用户组</strong>，weimo在Administrators用户组里。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="这是脚注。">[1]</span></a></sup></p></li></ul><h2 id="RDP（微软远程连接，图形化界面）"><a href="#RDP（微软远程连接，图形化界面）" class="headerlink" title="RDP（微软远程连接，图形化界面）"></a>RDP（微软远程连接，图形化界面）</h2><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol><li><p><strong>Win11 服务器端</strong></p><p> “设置 → 系统 → 远程桌面 → 打开”，记下计算机名并确认用户在“<strong>远程桌面用户</strong>”名单内。</p></li><li><p><strong>Win10 客户端</strong><br> 运行 <code>mstsc</code>​ → 输入服务器名&#x2F;IP:PORT。</p></li><li><p><strong>Tips</strong></p><ul><li>要想校园网可以访问实验室网络（校园网的内网）内的主机，则需要配置一下端口映射3389、TCP协议。</li><li>与其他远程桌面、多端协同的工具可能会产生冲突，例如同时Mouse without Boarders会导致鼠标消失。</li></ul></li></ol><section class="footnotes"><h2>脚注</h2><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>这是脚注。<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    <content type="html"><![CDATA[<h1 id="远程连接win11主机"><a href="#远程连接win11主机" class="headerlink" title="远程连接win11主机"></a>远程连接win11主机</h1><h2 id="ssh（仅命令行）"><a href="#ssh（仅命令行）" class="headerlink" title="ssh（仅命令行）"></a>ssh（仅命令行）</h2><h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><ul><li><p>服务端防火墙要配置<strong>入站规则</strong>，开放22端口。</p></li><li><p>客户端的公钥应该放在哪。</p><p><strong>ChatGPT o3:</strong></p><blockquote><p><strong>管理员账户</strong>必须把公钥写入 <code>C:\ProgramData\ssh\administrators_authorized_keys</code><a id="note1">​<sup>1</sup></a>。<br><strong>非管理员账户</strong>用 <code>%USERPROFILE%\.ssh\authorized_keys</code><a id="note2">​<sup>2</sup></a>。</p></blockquote><p>事实证明这一点不准确，FixedIdiot上的weimo账户不被认为是管理员账户，但是放在<a href="#note2">2</a>没有效果，放在<a href="#note1">1</a>却可以。我估计是因为判断标准是<strong>用户组</strong>，weimo在Administrators用户组里。</p></li></ul><h2 id="RDP（微软远程连接，图形化界面）"><a href="#RDP（微软远程连接，图形化界面）" class="headerlink" title="RDP（微软远程连接，图形化界面）"></a>RDP（微软远程连接，图形化界面）</h2><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol><li><p><strong>Win11 服务器端</strong></p><p> “设置 → 系统 → 远程桌面 → 打开”，记下计算机名并确认用户在“<strong>远程桌面用户</strong>”名单内。</p></li><li><p><strong>Win10 客户端</strong><br> 运行 <code>mstsc</code>​ → 输入服务器名&#x2F;IP:PORT。</p></li><li><p><strong>Tips</strong></p><ul><li>要想校园网可以访问实验室网络（校园网的内网）内的主机，则需要配置一下端口映射3389、TCP协议。</li><li>与其他远程桌面、多端协同的工具可能会产生冲突，例如同时Mouse without Boarders会导致鼠标消失。</li></ul></li></ol>]]></content>
     
     
     <categories>
       
-      <category>杂谈</category>
+      <category>基础</category>
       
-      <category>日志</category>
+      <category>工具用法</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>杂谈</tag>
+      <tag>工具</tag>
       
-      <tag>日志</tag>
-      
-      <tag>记录</tag>
-      
-      <tag>随笔</tag>
+      <tag>笔记</tag>
       
     </tags>
     
