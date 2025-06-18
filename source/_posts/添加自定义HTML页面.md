@@ -1,7 +1,6 @@
 ---
 title: 添加自定义HTML页面
 date: 2025-06-18 11:42:47
-updated: 2025-06-18 11:42:47
 categories: [实践指南, 大东西, Hexo]
 tags: [工具, 实践, 记录, Hexo, 前端]
 index_img: img/default.png

@@ -1,7 +1,6 @@
 ---
 title: 🕷️markdown语法笔记
 date: 2025-06-16 11:27:13
-updated: 2025-06-16 11:27:13
 categories: [笔记, markdown]
 tags: [markdown]
 index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%8F%AF%E7%88%B1%E8%B7%B3%E8%9B%9B.jpg
