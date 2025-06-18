@@ -1,4 +1,13 @@
-/* 全局重置 - 解决浏览器默认样式差异 */
+#main, /* 如果您找到的是 ID="main" */
+.post, /* 可能是这个 */
+#content { /* 也可能是这个 */
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important; /* 有时内边距也会影响布局 */
+    margin: 0 auto !important; /* 确保它仍然居中 */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -31,6 +40,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: transparent; /* 新增：设置背景为透明，以显示body的渐变背景 */
+    box-shadow: none;      /* 新增：移除可能由主题添加的阴影 */
+    border: none;          /* 新增：移除可能由主题添加的边框 */
 }
 
 /* 标题区域 */
