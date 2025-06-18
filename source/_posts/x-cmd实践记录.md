@@ -3,11 +3,11 @@ title: 🐙x-cmd实践记录
 date: 2025-06-16 11:02:01
 updated: 2025-06-16 11:02:01
 categories: [实践指南, 大东西, x-cmd]
-tags: [工具用法, 实践指南, 记录]
+tags: [工具, 实践, 记录, x-cmd, 终端]
 index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%AB%A0%E9%B1%BC.jpg
 ---
 
-# [x-cmd](https://cn.x-cmd.com/)实践记录
+# [🐙x-cmd](https://cn.x-cmd.com/)实践记录
 
 ## 安装
 
