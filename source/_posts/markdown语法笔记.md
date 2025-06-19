@@ -62,3 +62,20 @@ index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E
      * 只显示图标```{% icon icon-github-fill %}```:{% icon icon-github-fill %}
      * 带链接的图标```{% icon icon-github-fill https://github.com/weimoyo %}```:{% icon icon-github-fill https://github.com/weimoyo %}
      * 带链接和提示的图标```{% icon icon-github-fill https://github.com/weimoyo GitHub %}```:{% icon icon-github-fill https://github.com/weimoyo GitHub %}
+
+### 拼音
+
+**编辑器：** VSCode
+
+**步骤：**
+1. 命令面板=>Snippets: Configure Snippets=>markdown
+2. 使用预先准备的[markdown.json](https://pan.quark.cn/s/9d21b46229ab)
+3. 在setting.json里配置，必须专门配置markdown格式。
+   ```json
+   "[markdown]": {
+        "editor.quickSuggestions": {
+            "other": "on"
+        }
+    }
+    ```
+4. Markdown All in One等插件的设置对此没有影响。
