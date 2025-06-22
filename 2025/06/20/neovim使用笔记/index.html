@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png">
   <link rel="icon" href="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png">
   
-    <link rel="canonical" href="http://lixiang.us.kg/2025/06/19/《郑伯克段于鄢》笔记/"/>
+    <link rel="canonical" href="http://lixiang.us.kg/2025/06/20/neovim使用笔记/"/>
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -21,24 +21,28 @@
   <meta name="author" content="lix">
   <meta name="keywords" content="记录,思考,成长,连接">
   
-    <meta name="description" content="《郑伯克段于鄢》筆記字、詞、表达記錄 叔，生莊公及共叔段。古人命字常以伯（孟）、仲、叔、季表示長幼次序，但是會結合具體情況使用。在這裏，鄭莊公兄弟只有兩人，因此弟弟稱為“叔”。而“季”則用於兄弟多人的情況。 亟，亟請於武公。讀做qì是，意屢次。也讀做jí，意急忙。 都，大城。漢以後，“都”才指國都。補充： 京，大。先秦時，“京師”連用才指國都。  若&#x2F;奈&#x2F;如 + 之&#x2F;">
+    <meta name="description" content="🐆neovim使用笔记光标移动 基础： h、j、k、l对应←↓↑→，gg、G跳转到文档头、尾。 word跳转： w、e跳转到后一个“word的开头、结尾”，b跳转到前一个“word的开头”。不含除_外的标点符号。 WORD跳转：W、E跳转到后一个“WORD的开头、结尾”，B跳转到前一个“WORD的开头”。“WORD”以空格为单位。 注：  “word”的描述很繁琐，但是含义很简单，故不多赘述。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《郑伯克段于鄢》筆記">
-<meta property="og:url" content="http://lixiang.us.kg/2025/06/19/%E3%80%8A%E9%83%91%E4%BC%AF%E5%85%8B%E6%AE%B5%E4%BA%8E%E9%84%A2%E3%80%8B%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="🐆neovim使用笔记">
+<meta property="og:url" content="http://lixiang.us.kg/2025/06/20/neovim%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Zone of Lix">
-<meta property="og:description" content="《郑伯克段于鄢》筆記字、詞、表达記錄 叔，生莊公及共叔段。古人命字常以伯（孟）、仲、叔、季表示長幼次序，但是會結合具體情況使用。在這裏，鄭莊公兄弟只有兩人，因此弟弟稱為“叔”。而“季”則用於兄弟多人的情況。 亟，亟請於武公。讀做qì是，意屢次。也讀做jí，意急忙。 都，大城。漢以後，“都”才指國都。補充： 京，大。先秦時，“京師”連用才指國都。  若&#x2F;奈&#x2F;如 + 之&#x2F;">
+<meta property="og:description" content="🐆neovim使用笔记光标移动 基础： h、j、k、l对应←↓↑→，gg、G跳转到文档头、尾。 word跳转： w、e跳转到后一个“word的开头、结尾”，b跳转到前一个“word的开头”。不含除_外的标点符号。 WORD跳转：W、E跳转到后一个“WORD的开头、结尾”，B跳转到前一个“WORD的开头”。“WORD”以空格为单位。 注：  “word”的描述很繁琐，但是含义很简单，故不多赘述。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3.jpg">
-<meta property="article:published_time" content="2025-06-19T15:06:47.000Z">
-<meta property="article:modified_time" content="2025-06-22T15:06:50.778Z">
+<meta property="og:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg">
+<meta property="article:published_time" content="2025-06-20T02:24:35.000Z">
+<meta property="article:modified_time" content="2025-06-20T06:20:25.928Z">
 <meta property="article:author" content="lix">
-<meta property="article:tag" content="古代汉语">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="终端">
+<meta property="article:tag" content="编辑器">
+<meta property="article:tag" content="neovim">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3.jpg">
+<meta name="twitter:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg">
   
   
   
-  <title>《郑伯克段于鄢》筆記 - Zone of Lix</title>
+  <title>🐆neovim使用笔记 - Zone of Lix</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +208,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="《郑伯克段于鄢》筆記"></span>
+            <span id="subtitle" data-typed-text="🐆neovim使用笔记"></span>
           
         </div>
 
@@ -220,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-19 23:06" pubdate>
-          2025年6月19日 晚上
+        <time datetime="2025-06-20 10:24" pubdate>
+          2025年6月20日 上午
         </time>
       </span>
     
@@ -232,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          681 字
         
       </span>
     
@@ -243,7 +247,7 @@
         
         
         
-          12 分钟
+          6 分钟
         
       </span>
     
@@ -288,17 +292,17 @@
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="古代汉语"
-        id="heading-7ee36794f84b32f0100463784fc0854d" role="tab" data-toggle="collapse" href="#collapse-7ee36794f84b32f0100463784fc0854d"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="笔记"
+        id="heading-7051dc52c184c205e39aa54b4664ae9b" role="tab" data-toggle="collapse" href="#collapse-7051dc52c184c205e39aa54b4664ae9b"
         aria-expanded="true"
       >
-        古代汉语
-        <span class="list-group-count">(1)</span>
+        笔记
+        <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-7ee36794f84b32f0100463784fc0854d"
-           role="tabpanel" aria-labelledby="heading-7ee36794f84b32f0100463784fc0854d">
+      <div class="category-collapse collapse show" id="collapse-7051dc52c184c205e39aa54b4664ae9b"
+           role="tabpanel" aria-labelledby="heading-7051dc52c184c205e39aa54b4664ae9b">
         
         
           
@@ -314,18 +318,18 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="王力《古代汉语》笔记"
-        id="heading-15d9dc95b031fd9634d164f4c708d66c" role="tab" data-toggle="collapse" href="#collapse-15d9dc95b031fd9634d164f4c708d66c"
-        aria-expanded="true"
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="docker"
+        id="heading-05b6053c41a2130afd6fc3b158bda4e6" role="tab" data-toggle="collapse" href="#collapse-05b6053c41a2130afd6fc3b158bda4e6"
+        aria-expanded="false"
       >
-        王力《古代汉语》笔记
+        docker
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-15d9dc95b031fd9634d164f4c708d66c"
-           role="tabpanel" aria-labelledby="heading-15d9dc95b031fd9634d164f4c708d66c">
+      <div class="category-collapse collapse " id="collapse-05b6053c41a2130afd6fc3b158bda4e6"
+           role="tabpanel" aria-labelledby="heading-05b6053c41a2130afd6fc3b158bda4e6">
         
         
           
@@ -334,10 +338,84 @@
     
       
       
-        <a href="/2025/06/19/%E3%80%8A%E9%83%91%E4%BC%AF%E5%85%8B%E6%AE%B5%E4%BA%8E%E9%84%A2%E3%80%8B%E7%AC%94%E8%AE%B0/" title="《郑伯克段于鄢》筆記"
+        <a href="/2025/06/17/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="🐳docker使用笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">🐳docker使用笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="markdown"
+        id="heading-590fc197fe73db0aa2ec03687a372eea" role="tab" data-toggle="collapse" href="#collapse-590fc197fe73db0aa2ec03687a372eea"
+        aria-expanded="false"
+      >
+        markdown
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-590fc197fe73db0aa2ec03687a372eea"
+           role="tabpanel" aria-labelledby="heading-590fc197fe73db0aa2ec03687a372eea">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/06/16/markdown%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/" title="🕷️markdown语法笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">🕷️markdown语法笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="neovim"
+        id="heading-34b99a882f143de50ea36ed32ce14b79" role="tab" data-toggle="collapse" href="#collapse-34b99a882f143de50ea36ed32ce14b79"
+        aria-expanded="true"
+      >
+        neovim
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-34b99a882f143de50ea36ed32ce14b79"
+           role="tabpanel" aria-labelledby="heading-34b99a882f143de50ea36ed32ce14b79">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/06/20/neovim%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="🐆neovim使用笔记"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">《郑伯克段于鄢》筆記</span>
+          <span class="category-post">🐆neovim使用笔记</span>
         </a>
       
     
@@ -363,12 +441,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">《郑伯克段于鄢》筆記</h1>
+            <h1 id="seo-header">🐆neovim使用笔记</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-06-22T23:06:50+08:00
+                    本文最后更新于 2025-06-20T14:20:25+08:00
                   
                   
 
@@ -378,38 +456,160 @@
             
               <div class="markdown-body">
                 
-                <h1 id="《郑伯克段于鄢》筆記"><a href="#《郑伯克段于鄢》筆記" class="headerlink" title="《郑伯克段于鄢》筆記"></a>《郑伯克段于鄢》筆記</h1><h2 id="字、詞、表达記錄"><a href="#字、詞、表达記錄" class="headerlink" title="字、詞、表达記錄"></a>字、詞、表达記錄</h2><ol>
-<li><strong>叔</strong>，生莊公及共叔段。古人命字常以伯（孟）、仲、叔、季表示長幼次序，但是會結合具體情況使用。在這裏，鄭莊公兄弟只有兩人，因此弟弟稱為“叔”。而“季”則用於兄弟多人的情況。</li>
-<li><strong>亟</strong>，亟請於武公。讀做qì是，意屢次。也讀做jí，意急忙。</li>
-<li><strong>都</strong>，大城。漢以後，“都”才指國都。<strong>補充：</strong> <strong>京</strong>，大。先秦時，“京師”連用才指國都。 </li>
-<li><strong>若&#x2F;奈&#x2F;如 + 之&#x2F;若 + 何</strong>，對他怎麼辦。語法上這是动词性凝固结构，是先秦特有的疑问短语，不可拆解。</li>
-<li><strong>斃</strong>，倒下去。多行不義，必自斃。</li>
-<li><strong>姑</strong>，暫且。本意是父親的母親、姐妹，或者丈夫的姐妹，她們往往展現出緩和、安撫、遷就、妥協的姿態，因此“姑”慢慢引申為一種處理事情的態度，這已經比較接近“暫且”的含義。</li>
-<li><strong>昵</strong>，不義不昵。音nì，同“暱”，親近。這句話的意思是，段既然不義，就不能籠住民心。</li>
-<li><strong>具</strong>，齊備、完整。具眼，意為眼力好，見識高；具瞻，意為眾人瞻仰。而具臣卻是指備位充數，不稱職的臣子。具臣可以理解為表面上完美的臣子，因為真正的“具臣”不可能存在，它對一個臣子的要求是方方面面，甚至是矛盾的。姑此說乃諷刺。而“具眼”、“具瞻”等是可以實現的。</li>
-<li><strong>施</strong>，（潁考叔）愛其母，施及莊公。讀作yì，延伸，延續。</li>
-</ol>
-<h2 id="文章細節"><a href="#文章細節" class="headerlink" title="文章細節"></a>文章細節</h2><ol>
-<li><blockquote>
-<p>（姜氏）請京，（莊公）使（共叔段）居之，（人們）謂之京城大（tài）叔。</p>
-</blockquote>
-<p>杜预《春秋左传注》中說：“大叔，言寵之逾制，非禮也。大音泰。”</p>
+                <h1 id="🐆neovim使用笔记"><a href="#🐆neovim使用笔记" class="headerlink" title="🐆neovim使用笔记"></a>🐆neovim使用笔记</h1><h2 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h2><ul>
+<li><strong>基础：</strong> <code>h、j、k、l</code>对应←↓↑→，<code>gg、G</code>跳转到文档头、尾。</li>
+<li><strong>word跳转：</strong> <code>w、e</code>跳转到后一个“word的开头、结尾”，<code>b</code>跳转到前一个“word的开头”。不含除<code>_</code>外的标点符号。</li>
+<li><strong>WORD跳转：</strong><code>W、E</code>跳转到后一个“WORD的开头、结尾”，<code>B</code>跳转到前一个“WORD的开头”。“WORD”以空格为单位。</li>
+<li><strong>注：</strong> <ul>
+<li>“word”的描述很繁琐，但是含义很简单，故不多赘述。</li>
+<li>以上快捷键都可以与数字搭配使用。</li>
+<li>基础移动会以方向的尽头终止，如<code>100l</code>若超过该行剩余字符数则会移动到该行末尾。</li>
+<li>但是，word跳转的语义是“上一个、下一个”，只要没有到文档头尾，就不会终止跳转。</li>
+</ul>
 </li>
-<li><blockquote>
-<p>既而大叔命西鄙北鄙貳於己。</p>
-</blockquote>
-<p> 貳，兩屬。這句話的意思是：不久之後，共叔段命令西部、北部邊邑的守臣效忠莊公的同時效忠自己。</p>
+</ul>
+<h2 id="复制、粘贴、剪切"><a href="#复制、粘贴、剪切" class="headerlink" title="复制、粘贴、剪切"></a>复制、粘贴、剪切</h2><ul>
+<li><strong>基础：</strong> <code>y &lt;motion&gt;</code>复制，<code>d &lt;motion&gt;</code>删除，<code>p、P</code>在光标的右侧、左侧粘贴。<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">描述</th>
+<th align="center">成员</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">inclusive motion</td>
+<td align="center">仅有顺序，<strong>包含边界</strong></td>
+<td align="center">e</td>
+</tr>
+<tr>
+<td align="center">exclusive motion</td>
+<td align="center"><strong>顺序，仅不包含结尾</strong></br><strong>逆序，仅不包含开头</strong></td>
+<td align="center">w、l</br>b、h</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>文档头尾、一行的头尾都会有特殊</strong>，以上描述以移动的“预期”效果为基础，例如，文档最后一个word上再按<code>w</code>只会移动到该word的末尾，但是“预期”会移动到下一个的开头。故依然会包含整个word。</li>
+<li>表格里的开头、结尾是移动方向的头和尾，不是顺序方向。</li>
+</ul>
 </li>
-<li><blockquote>
-<p>無生民心。</p>
-</blockquote>
-<p>這句話意思是，不要是民眾產生二心。在古文語境裏，“民心”本就具有一心的預設，就像是個常識，這是對統治者一體的心。這個時候如果說生民心，那便在原本的心之外另一個心，也即二心。</p>
+<li><strong>行级操作：</strong> <table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>yy</code></td>
+<td align="center">复制一整行</td>
+</tr>
+<tr>
+<td align="center"><code>dd</code></td>
+<td align="center">删除一整行</td>
+</tr>
+<tr>
+<td align="center"><code>y j/k</code></td>
+<td align="center">包含当前行到目标行</td>
+</tr>
+<tr>
+<td align="center"><code>d j/k</code></td>
+<td align="center">同理</td>
+</tr>
+<tr>
+<td align="center"><code>p、P</code></td>
+<td align="center">在下一行、上一行粘贴</td>
+</tr>
+</tbody></table>
 </li>
-</ol>
-<h2 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h2><p>說《春秋》微言大義，而《左傳》為其註解，可我讀了本篇後依然無法理解所謂“大義”。</p>
-<p>文章開頭就讓人眉頭緊皺——姜氏因為生莊公時難產，所以討厭莊公。這讓我想起了帶小孩的場景，小孩子頑皮摔了一跤，很多大人有意無意地會引導小孩子把摔跤的責任歸咎於地不是好地。姑常常看到大人抱著小孩，邊拍打各種事物，邊說：“壞xx，惹我家寶哭了”。這個法子似乎真有效。姜氏就是這麽個小孩子，可難產怪不得地，更怪不得自己，所以是莊公的過錯。很多現代人也會有類似的心理，</p>
-<p>再後來段與姜氏謀反被平定，莊公與之“隨而相見”，賦詩作樂，母子如初。態度轉變之快讓人難以理解。疼愛的小兒子被討厭的大兒子打敗了，她大兒子沒有深仇大恨；又或者，偏愛小兒子，意圖推翻大兒子，她也不覺得對大兒子有愧。這種時候，她沒有選擇硬剛到底，也沒有選擇真誠道歉。而是選擇把過去埋葬。這母親做得也太容易了。這就是歷史上的“普通人”，就像我們身邊常見的一個普通女生，沒有對自己人格的要求、反思，缺乏對他人的體諒、共情，而且不要臉。</p>
-<p>對本文主旨的主流理解是揭露莊公的偽裝與奸詐。我覺得莊公之所以被認為惡，是因為他發現了道德的漏洞，現在叫“站在道德的高地”。這場事件裏，莊公是被置於危機的，叛亂的、不公的是段和姜氏，正因如此莊公利用了他之惡，將自己塑造成受害者，但是實際上他掌握了一切。無疑，莊公是權謀的高手，但是他是否是惡？我認為不是。他的做法是為了解決問題的同時獲得好名聲，那為什麼不做這些虛偽的鋪墊就無法獲得好名聲呢？莊公甫一即位，姜氏和段就小動作不斷，這時下手，可能會被說多疑猜忌、心胸狹小云云。段日益膨脹時下手，罪證不足難以根除，若它日再起禍患，可能會被評價為優柔寡斷。以上是我的猜測，但是可以想到想要在所有人嘴裏都是好名聲是很難的事情，不僅得靠個人品德，還得看氣運，很多事情發生之前都無法準確預測。姜氏可以開城門做內應就說明了問題，姜氏絕不是省油的燈，她不是有德之人，但有一定權勢。莊公的處境也有一定的危險性。所以莊公選擇先隱忍，一方面可以一擊必殺，另一方面也可以麻痺對手降低自己的風險，同時也可以儘可能獲得好名聲。為了保全自己使用計謀，無可厚非。至於他有沒有為了好名聲偽裝自己，誰也不知道，況且是與不是也並非重要的事情。倘若莊公為了名聲選擇了更危險更不理智的方法，那才是真正的虛偽。</p>
+<li><strong>text object操作：</strong> <code>&lt;verb&gt; &lt;prep&gt; &lt;text object&gt;</code><ul>
+<li><code>prep</code>: <code>i</code>nnner，<code>a</code>round</li>
+<li>常用文本对象<table>
+<thead>
+<tr>
+<th>文本对象</th>
+<th>作用范围</th>
+<th>示例命令</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>iw</code> &#x2F; <code>aw</code></td>
+<td>单词（word）</td>
+<td><code>ciw</code></td>
+<td>修改当前单词（不含空格）</td>
+</tr>
+<tr>
+<td><code>iW</code> &#x2F; <code>aW</code></td>
+<td>大单词（WORD，含标点）</td>
+<td><code>diW</code></td>
+<td>删除当前大单词（如 “hello!”）</td>
+</tr>
+<tr>
+<td><code>is</code> &#x2F; <code>as</code></td>
+<td>句子（sentence）</td>
+<td><code>vas</code></td>
+<td>选择当前句子</td>
+</tr>
+<tr>
+<td><code>ip</code> &#x2F; <code>ap</code></td>
+<td>段落（paragraph）</td>
+<td><code>dap</code></td>
+<td>删除当前段落（含空行）</td>
+</tr>
+<tr>
+<td><code>i&quot;</code> &#x2F; <code>a&quot;</code></td>
+<td><strong>双引号</strong>内内容</td>
+<td><code>yi&quot;</code></td>
+<td>复制引号内文本（不含引号）</td>
+</tr>
+<tr>
+<td><code>i&#39;</code> &#x2F; <code>a&#39;</code></td>
+<td>单引号内内容</td>
+<td><code>ci&#39;</code></td>
+<td>修改单引号内文本</td>
+</tr>
+<tr>
+<td><code>i`</code> &#x2F; <code>a`</code></td>
+<td>反引号内内容</td>
+<td><code>di`</code></td>
+<td>删除反引号内代码</td>
+</tr>
+<tr>
+<td><code>i(</code> &#x2F; <code>a(</code> <br /> (<code>ib</code> &#x2F; <code>ab</code>)</td>
+<td><strong>圆括号</strong>内内容</td>
+<td><code>ci(</code></td>
+<td>修改括号内文本（不含括号）</td>
+</tr>
+<tr>
+<td><code>i[</code> &#x2F; <code>a[</code></td>
+<td>方括号内内容</td>
+<td><code>vi[</code></td>
+<td>选择方括号内文本</td>
+</tr>
+<tr>
+<td><code>i&#123;</code> &#x2F; <code>a&#123;</code> <br /> (<code>iB</code> &#x2F; <code>aB</code>)</td>
+<td><strong>花括号</strong>内内容</td>
+<td><code>di&#123;</code></td>
+<td>删除代码块内容（不含 {}）</td>
+</tr>
+<tr>
+<td><code>it</code> &#x2F; <code>at</code></td>
+<td>XML&#x2F;HTML <strong>标签</strong>内容</td>
+<td><code>cit</code></td>
+<td>修改标签内文本（如 <code>&lt;div&gt;内容&lt;/div&gt;</code>）</td>
+</tr>
+<tr>
+<td><code>i&lt;</code> &#x2F; <code>a&lt;</code></td>
+<td><strong>尖括号</strong>内内容（如泛型）</td>
+<td><code>di&lt;</code></td>
+<td>删除 <code>&lt;T&gt;</code> 内部内容</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
 
                 
               </div>
@@ -428,12 +628,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%8F%A4%E4%BB%A3%E6%B1%89%E8%AF%AD/" class="category-chain-item">古代汉语</a>
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E5%8F%A4%E4%BB%A3%E6%B1%89%E8%AF%AD/%E7%8E%8B%E5%8A%9B%E3%80%8A%E5%8F%A4%E4%BB%A3%E6%B1%89%E8%AF%AD%E3%80%8B%E7%AC%94%E8%AE%B0/" class="category-chain-item">王力《古代汉语》笔记</a>
+  <a href="/categories/%E7%AC%94%E8%AE%B0/neovim/" class="category-chain-item">neovim</a>
   
   
 
@@ -450,7 +650,15 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%8F%A4%E4%BB%A3%E6%B1%89%E8%AF%AD/" class="print-no-link">#古代汉语</a>
+        <a href="/tags/%E5%B7%A5%E5%85%B7/" class="print-no-link">#工具</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/%E7%BB%88%E7%AB%AF/" class="print-no-link">#终端</a>
+      
+        <a href="/tags/%E7%BC%96%E8%BE%91%E5%99%A8/" class="print-no-link">#编辑器</a>
+      
+        <a href="/tags/neovim/" class="print-no-link">#neovim</a>
       
     </div>
   
@@ -462,8 +670,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>《郑伯克段于鄢》筆記</div>
-      <div>http://lixiang.us.kg/2025/06/19/《郑伯克段于鄢》笔记/</div>
+      <div>🐆neovim使用笔记</div>
+      <div>http://lixiang.us.kg/2025/06/20/neovim使用笔记/</div>
     </div>
     <div class="license-meta">
       
@@ -475,7 +683,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月19日</div>
+          <div>2025年6月20日</div>
         </div>
       
       
@@ -507,18 +715,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/20/neovim%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="🐆neovim使用笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">🐆neovim使用笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/18/%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89HTML%E9%A1%B5%E9%9D%A2/" title="添加自定义HTML页面">
-                        <span class="hidden-mobile">添加自定义HTML页面</span>
+                      <a href="/2025/06/19/%E3%80%8A%E9%83%91%E4%BC%AF%E5%85%8B%E6%AE%B5%E4%BA%8E%E9%84%A2%E3%80%8B%E7%AC%94%E8%AE%B0/" title="《郑伯克段于鄢》筆記">
+                        <span class="hidden-mobile">《郑伯克段于鄢》筆記</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
