@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png">
   <link rel="icon" href="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png">
   
-    <link rel="canonical" href="http://lixiang.us.kg/2025/06/19/《郑伯克段于鄢》笔记/"/>
+    <link rel="canonical" href="http://lixiang.us.kg/2025/06/26/配置一个舒服的wsl开发环境/"/>
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -21,24 +21,30 @@
   <meta name="author" content="lix">
   <meta name="keywords" content="记录,思考,成长,连接">
   
-    <meta name="description" content="《郑伯克段于鄢》筆記字、詞、表达記錄 叔，生莊公及共叔段。古人命字常以伯（孟）、仲、叔、季表示長幼次序，但是會結合具體情況使用。在這裏，鄭莊公兄弟只有兩人，因此弟弟稱為“叔”。而“季”則用於兄弟多人的情況。 亟，亟請於武公。讀做qì是，意屢次。也讀做jí，意急忙。 都，大城。漢以後，“都”才指國都。補充： 京，大。先秦時，“京師”連用才指國都。  若&#x2F;奈&#x2F;如 + 之&#x2F;">
+    <meta name="description" content="🦦配置一个舒服的wsl开发环境BUG: “wsl: 检测到 localhost 代理配置，但未镜像到 WSL。NAT 模式下的 WSL 不支持 localhost 代理。” 打开或者创建%USERPROFILE%.wslconfig，添加  123456[experimental]autoMemoryReclaim&#x3D;gradual  # gradual  | dropcache | disabl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《郑伯克段于鄢》筆記">
-<meta property="og:url" content="http://lixiang.us.kg/2025/06/19/%E3%80%8A%E9%83%91%E4%BC%AF%E5%85%8B%E6%AE%B5%E4%BA%8E%E9%84%A2%E3%80%8B%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="配置一个舒服的wsl开发环境">
+<meta property="og:url" content="http://lixiang.us.kg/2025/06/26/%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E8%88%92%E6%9C%8D%E7%9A%84wsl%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/index.html">
 <meta property="og:site_name" content="Zone of Lix">
-<meta property="og:description" content="《郑伯克段于鄢》筆記字、詞、表达記錄 叔，生莊公及共叔段。古人命字常以伯（孟）、仲、叔、季表示長幼次序，但是會結合具體情況使用。在這裏，鄭莊公兄弟只有兩人，因此弟弟稱為“叔”。而“季”則用於兄弟多人的情況。 亟，亟請於武公。讀做qì是，意屢次。也讀做jí，意急忙。 都，大城。漢以後，“都”才指國都。補充： 京，大。先秦時，“京師”連用才指國都。  若&#x2F;奈&#x2F;如 + 之&#x2F;">
+<meta property="og:description" content="🦦配置一个舒服的wsl开发环境BUG: “wsl: 检测到 localhost 代理配置，但未镜像到 WSL。NAT 模式下的 WSL 不支持 localhost 代理。” 打开或者创建%USERPROFILE%.wslconfig，添加  123456[experimental]autoMemoryReclaim&#x3D;gradual  # gradual  | dropcache | disabl">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3.jpg">
-<meta property="article:published_time" content="2025-06-19T15:06:47.000Z">
-<meta property="article:modified_time" content="2025-06-23T03:29:32.326Z">
+<meta property="article:published_time" content="2025-06-26T06:28:45.000Z">
+<meta property="article:modified_time" content="2025-06-26T10:50:58.434Z">
 <meta property="article:author" content="lix">
-<meta property="article:tag" content="古代汉语">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="终端">
+<meta property="article:tag" content="记录">
+<meta property="article:tag" content="实践">
+<meta property="article:tag" content="x-cmd">
+<meta property="article:tag" content="wsl">
+<meta property="article:tag" content="Debian">
+<meta property="article:tag" content="nushell">
+<meta property="article:tag" content="brew">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3.jpg">
   
   
   
-  <title>《郑伯克段于鄢》筆記 - Zone of Lix</title>
+  <title>配置一个舒服的wsl开发环境 - Zone of Lix</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +210,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="《郑伯克段于鄢》筆記"></span>
+            <span id="subtitle" data-typed-text="配置一个舒服的wsl开发环境"></span>
           
         </div>
 
@@ -220,8 +226,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-19 23:06" pubdate>
-          2025年6月19日 晚上
+        <time datetime="2025-06-26 14:28" pubdate>
+          2025年6月26日 下午
         </time>
       </span>
     
@@ -232,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          503 字
         
       </span>
     
@@ -243,7 +249,7 @@
         
         
         
-          12 分钟
+          5 分钟
         
       </span>
     
@@ -288,17 +294,17 @@
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="古代汉语"
-        id="heading-7ee36794f84b32f0100463784fc0854d" role="tab" data-toggle="collapse" href="#collapse-7ee36794f84b32f0100463784fc0854d"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="实践指南"
+        id="heading-40ac0c93b6a86d8aee4f158d21b95534" role="tab" data-toggle="collapse" href="#collapse-40ac0c93b6a86d8aee4f158d21b95534"
         aria-expanded="true"
       >
-        古代汉语
-        <span class="list-group-count">(1)</span>
+        实践指南
+        <span class="list-group-count">(4)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-7ee36794f84b32f0100463784fc0854d"
-           role="tabpanel" aria-labelledby="heading-7ee36794f84b32f0100463784fc0854d">
+      <div class="category-collapse collapse show" id="collapse-40ac0c93b6a86d8aee4f158d21b95534"
+           role="tabpanel" aria-labelledby="heading-40ac0c93b6a86d8aee4f158d21b95534">
         
         
           
@@ -315,17 +321,44 @@
     
     <div class="category-sub row nomargin-x">
       <a class="category-subitem 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="王力《古代汉语》笔记"
-        id="heading-15d9dc95b031fd9634d164f4c708d66c" role="tab" data-toggle="collapse" href="#collapse-15d9dc95b031fd9634d164f4c708d66c"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="大东西"
+        id="heading-a19c64d6701b0a31080b762326399888" role="tab" data-toggle="collapse" href="#collapse-a19c64d6701b0a31080b762326399888"
         aria-expanded="true"
       >
-        王力《古代汉语》笔记
+        大东西
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a19c64d6701b0a31080b762326399888"
+           role="tabpanel" aria-labelledby="heading-a19c64d6701b0a31080b762326399888">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Hexo"
+        id="heading-c00d1eb68b529768ba98c975c76a9b66" role="tab" data-toggle="collapse" href="#collapse-c00d1eb68b529768ba98c975c76a9b66"
+        aria-expanded="false"
+      >
+        Hexo
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-15d9dc95b031fd9634d164f4c708d66c"
-           role="tabpanel" aria-labelledby="heading-15d9dc95b031fd9634d164f4c708d66c">
+      <div class="category-collapse collapse " id="collapse-c00d1eb68b529768ba98c975c76a9b66"
+           role="tabpanel" aria-labelledby="heading-c00d1eb68b529768ba98c975c76a9b66">
         
         
           
@@ -334,10 +367,125 @@
     
       
       
-        <a href="/2025/06/19/%E3%80%8A%E9%83%91%E4%BC%AF%E5%85%8B%E6%AE%B5%E4%BA%8E%E9%84%A2%E3%80%8B%E7%AC%94%E8%AE%B0/" title="《郑伯克段于鄢》筆記"
+        <a href="/2025/06/18/%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89HTML%E9%A1%B5%E9%9D%A2/" title="添加自定义HTML页面"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">添加自定义HTML页面</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="wsl"
+        id="heading-fb6a6b3d865fcdcc89b421742e70fe43" role="tab" data-toggle="collapse" href="#collapse-fb6a6b3d865fcdcc89b421742e70fe43"
+        aria-expanded="true"
+      >
+        wsl
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-fb6a6b3d865fcdcc89b421742e70fe43"
+           role="tabpanel" aria-labelledby="heading-fb6a6b3d865fcdcc89b421742e70fe43">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/06/26/%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E8%88%92%E6%9C%8D%E7%9A%84wsl%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="配置一个舒服的wsl开发环境"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">《郑伯克段于鄢》筆記</span>
+          <span class="category-post">配置一个舒服的wsl开发环境</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="x-cmd"
+        id="heading-b69bfbf936a9b03c6a831f53d6073be2" role="tab" data-toggle="collapse" href="#collapse-b69bfbf936a9b03c6a831f53d6073be2"
+        aria-expanded="false"
+      >
+        x-cmd
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b69bfbf936a9b03c6a831f53d6073be2"
+           role="tabpanel" aria-labelledby="heading-b69bfbf936a9b03c6a831f53d6073be2">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/06/16/x-cmd%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/" title="🐙x-cmd实践记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">🐙x-cmd实践记录</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="小玩意"
+        id="heading-286d92e7522dc189703937ecaf166940" role="tab" data-toggle="collapse" href="#collapse-286d92e7522dc189703937ecaf166940"
+        aria-expanded="false"
+      >
+        小玩意
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-286d92e7522dc189703937ecaf166940"
+           role="tabpanel" aria-labelledby="heading-286d92e7522dc189703937ecaf166940">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/06/09/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5win11%E4%B8%BB%E6%9C%BA/" title="远程连接win11主机"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">远程连接win11主机</span>
         </a>
       
     
@@ -363,12 +511,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">《郑伯克段于鄢》筆記</h1>
+            <h1 id="seo-header">配置一个舒服的wsl开发环境</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-06-23T11:29:32+08:00
+                    本文最后更新于 2025-06-26T18:50:58+08:00
                   
                   
 
@@ -378,38 +526,56 @@
             
               <div class="markdown-body">
                 
-                <h1 id="《郑伯克段于鄢》筆記"><a href="#《郑伯克段于鄢》筆記" class="headerlink" title="《郑伯克段于鄢》筆記"></a>《郑伯克段于鄢》筆記</h1><h2 id="字、詞、表达記錄"><a href="#字、詞、表达記錄" class="headerlink" title="字、詞、表达記錄"></a>字、詞、表达記錄</h2><ol>
-<li><strong>叔</strong>，生莊公及共叔段。古人命字常以伯（孟）、仲、叔、季表示長幼次序，但是會結合具體情況使用。在這裏，鄭莊公兄弟只有兩人，因此弟弟稱為“叔”。而“季”則用於兄弟多人的情況。</li>
-<li><strong>亟</strong>，亟請於武公。讀做qì是，意屢次。也讀做jí，意急忙。</li>
-<li><strong>都</strong>，大城。漢以後，“都”才指國都。<strong>補充：</strong> <strong>京</strong>，大。先秦時，“京師”連用才指國都。 </li>
-<li><strong>若&#x2F;奈&#x2F;如 + 之&#x2F;若 + 何</strong>，對他怎麼辦。語法上這是动词性凝固结构，是先秦特有的疑问短语，不可拆解。</li>
-<li><strong>斃</strong>，倒下去。多行不義，必自斃。</li>
-<li><strong>姑</strong>，暫且。本意是父親的母親、姐妹，或者丈夫的姐妹，她們往往展現出緩和、安撫、遷就、妥協的姿態，因此“姑”慢慢引申為一種處理事情的態度，這已經比較接近“暫且”的含義。</li>
-<li><strong>暱</strong>，不義不暱。音nì，同“昵”，親近。這句話的意思是，段既然不義，就不能籠住民心。</li>
-<li><strong>具</strong>，齊備、完整。具眼，意為眼力好，見識高；具瞻，意為眾人瞻仰。而具臣卻是指備位充數，不稱職的臣子。具臣可以理解為表面上完美的臣子，因為真正的“具臣”不可能存在，它對一個臣子的要求是方方面面，甚至是矛盾的。姑此說乃諷刺。而“具眼”、“具瞻”等是可以實現的。</li>
-<li><strong>施</strong>，（潁考叔）愛其母，施及莊公。讀作yì，延伸，延續。</li>
-</ol>
-<h2 id="文章細節"><a href="#文章細節" class="headerlink" title="文章細節"></a>文章細節</h2><ol>
-<li><blockquote>
-<p>（姜氏）請京，（莊公）使（共叔段）居之，（人們）謂之京城大（tài）叔。</p>
-</blockquote>
-<p>杜预《春秋左传注》中說：“大叔，言寵之逾制，非禮也。大音泰。”</p>
-</li>
-<li><blockquote>
-<p>既而大叔命西鄙北鄙貳於己。</p>
-</blockquote>
-<p> 貳，兩屬。這句話的意思是：不久之後，共叔段命令西部、北部邊邑的守臣效忠莊公的同時效忠自己。</p>
-</li>
-<li><blockquote>
-<p>無生民心。</p>
-</blockquote>
-<p>這句話意思是，不要是民眾產生二心。在古文語境裏，“民心”本就具有一心的預設，就像是個常識，這是對統治者一體的心。這個時候如果說生民心，那便在原本的心之外另一個心，也即二心。</p>
+                <h1 id="🦦配置一个舒服的wsl开发环境"><a href="#🦦配置一个舒服的wsl开发环境" class="headerlink" title="🦦配置一个舒服的wsl开发环境"></a>🦦配置一个舒服的wsl开发环境</h1><h2 id="BUG-“wsl-检测到-localhost-代理配置，但未镜像到-WSL。NAT-模式下的-WSL-不支持-localhost-代理。”"><a href="#BUG-“wsl-检测到-localhost-代理配置，但未镜像到-WSL。NAT-模式下的-WSL-不支持-localhost-代理。”" class="headerlink" title="BUG: “wsl: 检测到 localhost 代理配置，但未镜像到 WSL。NAT 模式下的 WSL 不支持 localhost 代理。”"></a>BUG: “wsl: 检测到 localhost 代理配置，但未镜像到 WSL。NAT 模式下的 WSL 不支持 localhost 代理。”</h2><ol>
+<li><p>打开或者创建%USERPROFILE%.wslconfig，添加</p>
+ <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[experimental]</span><br><span class="hljs-attr">autoMemoryReclaim</span>=gradual  <span class="hljs-comment"># gradual  | dropcache | disabled</span><br><span class="hljs-attr">networkingMode</span>=mirrored<br><span class="hljs-attr">dnsTunneling</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">firewall</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">autoProxy</span>=<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></li>
+<li><p>关机<code>wsl --shutdown Debian</code>，重启<code>wsl -d Debian</code>。</p>
 </li>
 </ol>
-<h2 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h2><p>說《春秋》微言大義，而《左傳》為其註解，可我讀了本篇後依然無法理解所謂“大義”。</p>
-<p>文章開頭就讓人眉頭緊皺——姜氏因為生莊公時難產，所以討厭莊公。這讓我想起了帶小孩的場景，小孩子頑皮摔了一跤，很多大人有意無意地會引導小孩子把摔跤的責任歸咎於地不是好地。姑常常看到大人抱著小孩，邊拍打各種事物，邊說：“壞xx，惹我家寶哭了”。這個法子似乎真有效。姜氏就是這麽個小孩子，可難產怪不得地，更怪不得自己，所以是莊公的過錯。很多現代人也會有類似的心理，</p>
-<p>再後來段與姜氏謀反被平定，莊公與之“隨而相見”，賦詩作樂，母子如初。態度轉變之快讓人難以理解。疼愛的小兒子被討厭的大兒子打敗了，她大兒子沒有深仇大恨；又或者，偏愛小兒子，意圖推翻大兒子，她也不覺得對大兒子有愧。這種時候，她沒有選擇硬剛到底，也沒有選擇真誠道歉。而是選擇把過去埋葬。這母親做得也太容易了。這就是歷史上的“普通人”，就像我們身邊常見的一個普通女生，沒有對自己人格的要求、反思，缺乏對他人的體諒、共情，而且不要臉。</p>
-<p>對本文主旨的主流理解是揭露莊公的偽裝與奸詐。我覺得莊公之所以被認為惡，是因為他發現了道德的漏洞，現在叫“站在道德的高地”。這場事件裏，莊公是被置於危機的，叛亂的、不公的是段和姜氏，正因如此莊公利用了他之惡，將自己塑造成受害者，但是實際上他掌握了一切。無疑，莊公是權謀的高手，但是他是否是惡？我認為不是。他的做法是為了解決問題的同時獲得好名聲，那為什麼不做這些虛偽的鋪墊就無法獲得好名聲呢？莊公甫一即位，姜氏和段就小動作不斷，這時下手，可能會被說多疑猜忌、心胸狹小云云。段日益膨脹時下手，罪證不足難以根除，若它日再起禍患，可能會被評價為優柔寡斷。以上是我的猜測，但是可以想到想要在所有人嘴裏都是好名聲是很難的事情，不僅得靠個人品德，還得看氣運，很多事情發生之前都無法準確預測。姜氏可以開城門做內應就說明了問題，姜氏絕不是省油的燈，她不是有德之人，但有一定權勢。莊公的處境也有一定的危險性。所以莊公選擇先隱忍，一方面可以一擊必殺，另一方面也可以麻痺對手降低自己的風險，同時也可以儘可能獲得好名聲。為了保全自己使用計謀，無可厚非。至於他有沒有為了好名聲偽裝自己，誰也不知道，況且是與不是也並非重要的事情。倘若莊公為了名聲選擇了更危險更不理智的方法，那才是真正的虛偽。</p>
+<h2 id="安装brew包管理器"><a href="#安装brew包管理器" class="headerlink" title="安装brew包管理器"></a>安装brew包管理器</h2><ol>
+<li>安装依赖项 <code>sudo apt-get install build-essential procps curl file git</code>。</li>
+<li>安装Homebrew <code>/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;</code>。</li>
+<li>配置环境变量和软链接 <code>echo &#39;eval &quot;$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)&quot;&#39; &gt;&gt; $HOME/.bash_profile</code>，<code>eval &quot;$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)&quot;</code>。</li>
+<li>验证安装成功 <code>brew doctor</code>。</li>
+<li>用法：<ul>
+<li><code>brew install &lt;package_name&gt;</code></li>
+<li><code>brew remove &lt;package_name&gt;</code></li>
+<li><code>brew list</code></li>
+<li>删除不需要的依赖 <code>brew autoremove</code></li>
+</ul>
+</li>
+<li>删除Homebrew <code>/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)&quot;</code></li>
+</ol>
+<h2 id="安装、配置nushell"><a href="#安装、配置nushell" class="headerlink" title="安装、配置nushell"></a>安装、配置nushell</h2><ol>
+<li>安装nushell <code>brew install nushell</code></li>
+<li>修改nushell为默认shell<ol>
+<li>添加nu到shell列表里，有几种方式，行为可能因情况不确定，写在这作参考：<ul>
+<li>brew安装nu的默认位置是<code>/home/linuxbrew/.linuxbrew/bin/nu</code>，故可以<code>echo &quot;/home/linuxbrew/.linuxbrew/bin/nu&quot; | sudo tee -a /etc/shells</code>。</li>
+<li>在bash里执行<code>which nu | sudo tee -a /etc/shells</code>。</li>
+</ul>
+</li>
+<li>修改当前用户的默认shell，这也有几种不确定的方式：<ul>
+<li><code>chsh -s $(which nu)</code>，或使用默认位置。</li>
+<li>直接修改<code>/etc/passwd</code>，将对应用户原本的<code>.../bash</code>改为nu的位置，root用户可能也需要修改。</li>
+</ul>
+</li>
+<li>重启wsl，<code>exit</code>若无效，可以用<code>wsl --shutdown Debian</code>。</li>
+</ol>
+</li>
+<li>一点小配置 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-comment"># set default editor</span><br><span class="hljs-variable">$env</span>.config.buffer_editor = <span class="hljs-string">&quot;nvim&quot;</span><br><br><span class="hljs-comment"># cancle default message when boot</span><br><span class="hljs-variable">$env</span>.config.show_banner = <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure></li>
+<li><strong>注：</strong> 切换到nushell后环境变量都没了，<code>brew</code>、<code>nushell</code> 等都需要重新加入环境变量。</li>
+</ol>
+<h2 id="安装、配置neovim"><a href="#安装、配置neovim" class="headerlink" title="安装、配置neovim"></a>安装、配置neovim</h2><ol>
+<li><strong>安装neovim：</strong><code>brew install neovim</code></li>
+<li><strong>安装<a target="_blank" rel="noopener" href="https://github.com/doctorfree/nvim-lazyman"><i class="iconfont icon-github-fill"></i>Lazyman</a></strong>。</li>
+</ol>
+<h3 id="Lazyman的各种问题"><a href="#Lazyman的各种问题" class="headerlink" title="Lazyman的各种问题"></a>Lazyman的各种问题</h3><ul>
+<li>neovim版本需要高于0.9。</li>
+<li>使用lazyman（可能需要手动加入环境变量）命令打开交互式配置界面。</li>
+<li>菜单后面几个安装依赖的都得先装一下，之后再去安装配置。</li>
+<li>配置到<code>nvim</code>上需要写入环境变量，以nushell为例<code>$env.NVIM_APPNAME = &#39;nvim-Python&#39;</code>。</li>
+<li>复制、粘贴是有时会报错<code>clipboard: error invoking wl copy/paste failed to connect to a wayland server</code>，去<code>/usr/bin</code>将<code>wl-ccopy</code>和<code>wl-paste</code>删除即可。注：这与Wayland协议（用于ssh等场景）有关。</li>
+</ul>
 
                 
               </div>
@@ -428,13 +594,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%8F%A4%E4%BB%A3%E6%B1%89%E8%AF%AD/" class="category-chain-item">古代汉语</a>
+  <a href="/categories/%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/" class="category-chain-item">实践指南</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E5%8F%A4%E4%BB%A3%E6%B1%89%E8%AF%AD/%E7%8E%8B%E5%8A%9B%E3%80%8A%E5%8F%A4%E4%BB%A3%E6%B1%89%E8%AF%AD%E3%80%8B%E7%AC%94%E8%AE%B0/" class="category-chain-item">王力《古代汉语》笔记</a>
+  <a href="/categories/%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/%E5%A4%A7%E4%B8%9C%E8%A5%BF/" class="category-chain-item">大东西</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97/%E5%A4%A7%E4%B8%9C%E8%A5%BF/wsl/" class="category-chain-item">wsl</a>
+  
+  
+
   
 
   
@@ -450,7 +623,23 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%8F%A4%E4%BB%A3%E6%B1%89%E8%AF%AD/" class="print-no-link">#古代汉语</a>
+        <a href="/tags/%E5%B7%A5%E5%85%B7/" class="print-no-link">#工具</a>
+      
+        <a href="/tags/%E7%BB%88%E7%AB%AF/" class="print-no-link">#终端</a>
+      
+        <a href="/tags/%E8%AE%B0%E5%BD%95/" class="print-no-link">#记录</a>
+      
+        <a href="/tags/%E5%AE%9E%E8%B7%B5/" class="print-no-link">#实践</a>
+      
+        <a href="/tags/x-cmd/" class="print-no-link">#x-cmd</a>
+      
+        <a href="/tags/wsl/" class="print-no-link">#wsl</a>
+      
+        <a href="/tags/Debian/" class="print-no-link">#Debian</a>
+      
+        <a href="/tags/nushell/" class="print-no-link">#nushell</a>
+      
+        <a href="/tags/brew/" class="print-no-link">#brew</a>
       
     </div>
   
@@ -462,8 +651,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>《郑伯克段于鄢》筆記</div>
-      <div>http://lixiang.us.kg/2025/06/19/《郑伯克段于鄢》笔记/</div>
+      <div>配置一个舒服的wsl开发环境</div>
+      <div>http://lixiang.us.kg/2025/06/26/配置一个舒服的wsl开发环境/</div>
     </div>
     <div class="license-meta">
       
@@ -475,7 +664,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月19日</div>
+          <div>2025年6月26日</div>
         </div>
       
       
@@ -507,18 +696,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/20/neovim%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="🐆neovim使用笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">🐆neovim使用笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/18/%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89HTML%E9%A1%B5%E9%9D%A2/" title="添加自定义HTML页面">
-                        <span class="hidden-mobile">添加自定义HTML页面</span>
+                      <a href="/2025/06/26/neovim%E9%85%8D%E7%BD%AE/" title="neovim配置">
+                        <span class="hidden-mobile">neovim配置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
