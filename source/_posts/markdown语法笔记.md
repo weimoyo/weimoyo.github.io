@@ -14,11 +14,13 @@ index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E
 
 1. 行内链接：```[显示文本](链接地址 "可选标题")```
 2. 引用式链接：
+
    ```markdown
    [显示文本][链接标识]
 
    [链接标识]: 链接地址 "可选标题"
    ```
+
 3. 直接显示URL：```<https://markdown.org>```
 4. 图片链接：```[![图片替代文本](图片URL)](链接地址)```
 
@@ -32,6 +34,7 @@ index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E
   * ```<a href="https://github.com/weimoyo/weimoyo.github.io/tree/gh-source/source/snake)" title="GitHub" target="_blank" rel="noopener noreferrer"><i class="iconfont icon-github-fill"></i></a>```
 * fluid内置的图标的便捷使用方式，添加一个图标插件：
   1. 在主题目录的scripts目录里创建一个icon.js，内容如下
+
       ```js
       hexo.extend.tag.register('icon', function(args) {
       const iconClass = args[0];
@@ -58,19 +61,22 @@ index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E
       return iconHtml;
       });
       ```
+
   2. 三种使用方式
      * 只显示图标```{% icon icon-github-fill %}```:{% icon icon-github-fill %}
-     * 带链接的图标```{% icon icon-github-fill https://github.com/weimoyo %}```:{% icon icon-github-fill https://github.com/weimoyo %}
-     * 带链接和提示的图标```{% icon icon-github-fill https://github.com/weimoyo GitHub %}```:{% icon icon-github-fill https://github.com/weimoyo GitHub %}
+     * 带链接的图标```{% icon icon-github-fill https://github.com/weimoyo %}```:{% icon icon-github-fill <https://github.com/weimoyo> %}
+     * 带链接和提示的图标```{% icon icon-github-fill https://github.com/weimoyo GitHub %}```:{% icon icon-github-fill <https://github.com/weimoyo> GitHub %}
 
 ### 拼音
 
 **编辑器：** VSCode
 
 **步骤：**
+
 1. 命令面板=>Snippets: Configure Snippets=>markdown
 2. 使用预先准备的[markdown.json](https://pan.quark.cn/s/9d21b46229ab)
 3. 在setting.json里配置，必须专门配置markdown格式。
+
    ```json
    "[markdown]": {
         "editor.quickSuggestions": {
@@ -78,4 +84,5 @@ index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E
         }
     }
     ```
+
 4. Markdown All in One等插件的设置对此没有影响。

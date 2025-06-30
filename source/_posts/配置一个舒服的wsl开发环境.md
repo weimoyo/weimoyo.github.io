@@ -3,7 +3,7 @@ title: 配置一个舒服的wsl开发环境
 date: 2025-06-26 14:28:45
 categories: [实践指南, 大东西, wsl]
 tags: [工具, 实践, 记录, wsl, 终端, Debian, nushell, x-cmd, brew]
-index_img: 
+index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%9C%BA%E6%9C%9B%E7%9A%84%E6%B0%B4%E7%8D%AD.jpg
 ---
 
 # 🦦配置一个舒服的wsl开发环境
