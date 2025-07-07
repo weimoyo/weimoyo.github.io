@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png">
   <link rel="icon" href="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png">
   
-    <link rel="canonical" href="http://lixiang.us.kg/2025/06/17/docker使用笔记/"/>
+    <link rel="canonical" href="http://lixiang.us.kg/2025/07/07/pytest笔记/"/>
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -21,24 +21,28 @@
   <meta name="author" content="lix">
   <meta name="keywords" content="记录,思考,成长,连接">
   
-    <meta name="description" content="🐳docker使用笔记linux运行Dockerfile时“permission denied”部分报错：ERROR: permission denied while trying to connect to the Docker daemon socket解决方法：  sudo usermod -aG docker $USER 需注销或重启才能生效，为的是让shell使用docker组的权限">
+    <meta name="description" content="测试框架的作用 用例发现、管理、执行。 环境管理。 测试报告。  pytest对比unittest 需要手动安装、可以指定版本。 代码风格不是Java而是Python。 拥有更丰富的插件生态。 完全兼容unittest。  快速上手 安装：uv add pytest -U 启动方式： 创建一个新文件添加pytest.main()。 pytest：自动发现当前目录下的所有测试文件，执行所有测试用例。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="🐳docker使用笔记">
-<meta property="og:url" content="http://lixiang.us.kg/2025/06/17/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="pytest笔记">
+<meta property="og:url" content="http://lixiang.us.kg/2025/07/07/pytest%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Zone of Lix">
-<meta property="og:description" content="🐳docker使用笔记linux运行Dockerfile时“permission denied”部分报错：ERROR: permission denied while trying to connect to the Docker daemon socket解决方法：  sudo usermod -aG docker $USER 需注销或重启才能生效，为的是让shell使用docker组的权限">
+<meta property="og:description" content="测试框架的作用 用例发现、管理、执行。 环境管理。 测试报告。  pytest对比unittest 需要手动安装、可以指定版本。 代码风格不是Java而是Python。 拥有更丰富的插件生态。 完全兼容unittest。  快速上手 安装：uv add pytest -U 启动方式： 创建一个新文件添加pytest.main()。 pytest：自动发现当前目录下的所有测试文件，执行所有测试用例。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%BB%93%E5%AF%B9%E7%9A%84%E8%93%9D%E9%B2%B8%EF%BC%9F.jpg">
-<meta property="article:published_time" content="2025-06-17T03:40:30.000Z">
-<meta property="article:modified_time" content="2025-06-27T09:44:41.059Z">
+<meta property="og:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%99%BD%E5%8C%96%E8%9F%92%E8%9B%87.jpg">
+<meta property="article:published_time" content="2025-07-07T02:35:36.000Z">
+<meta property="article:modified_time" content="2025-07-07T09:47:36.826Z">
 <meta property="article:author" content="lix">
-<meta property="article:tag" content="docker">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="pytest">
+<meta property="article:tag" content="测试">
+<meta property="article:tag" content="测试框架">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%BB%93%E5%AF%B9%E7%9A%84%E8%93%9D%E9%B2%B8%EF%BC%9F.jpg">
+<meta name="twitter:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%99%BD%E5%8C%96%E8%9F%92%E8%9B%87.jpg">
   
   
   
-  <title>🐳docker使用笔记 - Zone of Lix</title>
+  <title>pytest笔记 - Zone of Lix</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +208,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="🐳docker使用笔记"></span>
+            <span id="subtitle" data-typed-text="pytest笔记"></span>
           
         </div>
 
@@ -220,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-17 11:40" pubdate>
-          2025年6月17日 中午
+        <time datetime="2025-07-07 10:35" pubdate>
+          2025年7月7日 上午
         </time>
       </span>
     
@@ -232,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          70 字
+          279 字
         
       </span>
     
@@ -243,7 +247,7 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -314,17 +318,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="docker"
         id="heading-05b6053c41a2130afd6fc3b158bda4e6" role="tab" data-toggle="collapse" href="#collapse-05b6053c41a2130afd6fc3b158bda4e6"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         docker
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-05b6053c41a2130afd6fc3b158bda4e6"
+      <div class="category-collapse collapse " id="collapse-05b6053c41a2130afd6fc3b158bda4e6"
            role="tabpanel" aria-labelledby="heading-05b6053c41a2130afd6fc3b158bda4e6">
         
         
@@ -336,7 +340,7 @@
       
         <a href="/2025/06/17/docker%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="🐳docker使用笔记"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">🐳docker使用笔记</span>
         </a>
       
@@ -443,17 +447,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="python"
         id="heading-23eeeb4347bdd26bfc6b7ee9a3b755dd" role="tab" data-toggle="collapse" href="#collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         python
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      <div class="category-collapse collapse show" id="collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
            role="tabpanel" aria-labelledby="heading-23eeeb4347bdd26bfc6b7ee9a3b755dd">
         
         
@@ -465,7 +469,7 @@
       
         <a href="/2025/07/07/pytest%E7%AC%94%E8%AE%B0/" title="pytest笔记"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">pytest笔记</span>
         </a>
       
@@ -492,12 +496,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">🐳docker使用笔记</h1>
+            <h1 id="seo-header">pytest笔记</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-06-27T17:44:41+08:00
+                    本文最后更新于 2025-07-07T17:47:36+08:00
                   
                   
 
@@ -507,12 +511,81 @@
             
               <div class="markdown-body">
                 
-                <h1 id="🐳docker使用笔记"><a href="#🐳docker使用笔记" class="headerlink" title="🐳docker使用笔记"></a>🐳docker使用笔记</h1><h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><h3 id="运行Dockerfile时“permission-denied”"><a href="#运行Dockerfile时“permission-denied”" class="headerlink" title="运行Dockerfile时“permission denied”"></a>运行Dockerfile时“permission denied”</h3><p><strong>部分报错：</strong><code>ERROR: permission denied while trying to connect to the Docker daemon socket</code><br><strong>解决方法：</strong></p>
+                <h2 id="测试框架的作用"><a href="#测试框架的作用" class="headerlink" title="测试框架的作用"></a>测试框架的作用</h2><ul>
+<li>用例发现、管理、执行。</li>
+<li>环境管理。</li>
+<li>测试报告。</li>
+</ul>
+<h2 id="pytest对比unittest"><a href="#pytest对比unittest" class="headerlink" title="pytest对比unittest"></a>pytest对比unittest</h2><ul>
+<li>需要手动安装、可以指定版本。</li>
+<li>代码风格不是Java而是Python。</li>
+<li>拥有更丰富的插件生态。</li>
+<li>完全兼容unittest。</li>
+</ul>
+<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><ul>
+<li>安装：<code>uv add pytest -U</code></li>
+<li>启动方式：<ol>
+<li>创建一个新文件添加<code>pytest.main()</code>。</li>
+<li><code>pytest</code>：自动发现当前目录下的所有测试文件，执行所有测试用例。</li>
+<li><code>pytest test_*.py</code>：执行指定的测试文件。</li>
+<li><code>pytest test_*.py::test_func</code>：执行指定的测试函数。</li>
+</ol>
+</li>
+</ul>
+<h2 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h2><ul>
+<li><p>结果种类</p>
+<table>
+<thead>
+<tr>
+<th>缩写</th>
+<th>单词</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>passed</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>F</td>
+<td>failed</td>
+<td>失败（用例执行报错）</td>
+</tr>
+<tr>
+<td>E</td>
+<td>error</td>
+<td>出错（fixture执行报错）</td>
+</tr>
+<tr>
+<td>s</td>
+<td>skipped</td>
+<td>跳过</td>
+</tr>
+<tr>
+<td>X</td>
+<td>xpassed</td>
+<td>预期外的通过（不符合预期）</td>
+</tr>
+<tr>
+<td>x</td>
+<td>xfailed</td>
+<td>预期内的失败（符合预期）</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>规则</p>
 <ul>
-<li><code>sudo usermod -aG docker $USER</code></li>
-<li>需注销或重启才能生效，为的是让shell使用docker组的权限</li>
-<li>或为当前终端临时添加权限，<code>newgrp docker</code></li>
-<li>可以用<code>groups</code>指令看当前shell是否拥有docker权限</li>
+<li>用例的发现规则——识别、加载用例的过程<br>步骤：<ol>
+<li>遍历当前目录及子目录下的所有文件，例外：<code>venv</code>、<code>.*</code>。</li>
+<li>打开<code>test_</code>开头或者<code>_test</code>结尾的python文件。</li>
+<li>遍历所有<code>Test_</code>开头的类（不过类并非是用例）。</li>
+<li>收集所有<code>test_</code>开头的<strong>函数或方法</strong>作为用例。</li>
+</ol>
+</li>
+<li>用例的内容</li>
+</ul>
+</li>
 </ul>
 
                 
@@ -537,7 +610,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E7%AC%94%E8%AE%B0/docker/" class="category-chain-item">docker</a>
+  <a href="/categories/%E7%AC%94%E8%AE%B0/python/" class="category-chain-item">python</a>
   
   
 
@@ -554,7 +627,15 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/docker/" class="print-no-link">#docker</a>
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/pytest/" class="print-no-link">#pytest</a>
+      
+        <a href="/tags/%E6%B5%8B%E8%AF%95/" class="print-no-link">#测试</a>
+      
+        <a href="/tags/%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" class="print-no-link">#测试框架</a>
       
     </div>
   
@@ -566,8 +647,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>🐳docker使用笔记</div>
-      <div>http://lixiang.us.kg/2025/06/17/docker使用笔记/</div>
+      <div>pytest笔记</div>
+      <div>http://lixiang.us.kg/2025/07/07/pytest笔记/</div>
     </div>
     <div class="license-meta">
       
@@ -579,7 +660,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月17日</div>
+          <div>2025年7月7日</div>
         </div>
       
       
@@ -611,9 +692,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/18/%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89HTML%E9%A1%B5%E9%9D%A2/" title="添加自定义HTML页面">
+                      <a href="/2025/07/07/neovim%E6%8F%92%E4%BB%B6%E8%AE%B0%E5%BD%95%E3%80%81%E7%94%A8%E6%B3%95/" title="neovim插件记录、用法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">添加自定义HTML页面</span>
+                        <span class="hidden-mobile">neovim插件记录、用法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -621,8 +702,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/16/markdown%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/" title="🕷️markdown语法笔记">
-                        <span class="hidden-mobile">🕷️markdown语法笔记</span>
+                      <a href="/2025/06/30/%E5%90%84%E7%B1%BB%E5%B0%8F%E5%B7%A5%E5%85%B7%EF%BC%88%E4%B8%80%EF%BC%89/" title="各类小工具（一）">
+                        <span class="hidden-mobile">各类小工具（一）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
