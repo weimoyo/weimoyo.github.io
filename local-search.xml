@@ -39,11 +39,11 @@
   
   
   <entry>
-    <title>pytest笔记</title>
-    <link href="/2025/07/07/pytest%E7%AC%94%E8%AE%B0/"/>
-    <url>/2025/07/07/pytest%E7%AC%94%E8%AE%B0/</url>
+    <title>pytest笔记（一）</title>
+    <link href="/2025/07/07/pytest%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <url>/2025/07/07/pytest%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     
-    <content type="html"><![CDATA[<h2 id="测试框架的作用"><a href="#测试框架的作用" class="headerlink" title="测试框架的作用"></a>测试框架的作用</h2><ul><li>用例发现、管理、执行。</li><li>环境管理。</li><li>测试报告。</li></ul><h2 id="pytest对比unittest"><a href="#pytest对比unittest" class="headerlink" title="pytest对比unittest"></a>pytest对比unittest</h2><ul><li>需要手动安装、可以指定版本。</li><li>代码风格不是Java而是Python。</li><li>拥有更丰富的插件生态。</li><li>完全兼容unittest。</li></ul><h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><ul><li>安装：<code>uv add pytest -U</code></li><li>启动方式：<ol><li>创建一个新文件添加<code>pytest.main()</code>。</li><li><code>pytest</code>：自动发现当前目录下的所有测试文件，执行所有测试用例。</li><li><code>pytest test_*.py</code>：执行指定的测试文件。</li><li><code>pytest test_*.py::test_func</code>：执行指定的测试函数。</li></ol></li></ul><h2 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h2><ul><li><p>结果种类</p><table><thead><tr><th>缩写</th><th>单词</th><th>含义</th></tr></thead><tbody><tr><td>.</td><td>passed</td><td>通过</td></tr><tr><td>F</td><td>failed</td><td>失败（用例执行报错）</td></tr><tr><td>E</td><td>error</td><td>出错（fixture执行报错）</td></tr><tr><td>s</td><td>skipped</td><td>跳过</td></tr><tr><td>X</td><td>xpassed</td><td>预期外的通过（不符合预期）</td></tr><tr><td>x</td><td>xfailed</td><td>预期内的失败（符合预期）</td></tr></tbody></table></li><li><p>规则</p><ul><li>用例的发现规则——识别、加载用例的过程<br>步骤：<ol><li>遍历当前目录及子目录下的所有文件，例外：<code>venv</code>、<code>.*</code>。</li><li>打开<code>test_</code>开头或者<code>_test</code>结尾的python文件。</li><li>遍历所有<code>Test_</code>开头的类（不过类并非是用例）。</li><li>收集所有<code>test_</code>开头的<strong>函数或方法</strong>作为用例。</li></ol></li><li>用例的内容</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h2 id="测试框架的作用"><a href="#测试框架的作用" class="headerlink" title="测试框架的作用"></a>测试框架的作用</h2><ul><li>用例发现、管理、执行。</li><li>环境管理。</li><li>测试报告。</li></ul><h2 id="pytest对比unittest"><a href="#pytest对比unittest" class="headerlink" title="pytest对比unittest"></a>pytest对比unittest</h2><ul><li>需要手动安装、可以指定版本。</li><li>代码风格不是Java而是Python。</li><li>拥有更丰富的插件生态。</li><li>完全兼容unittest。</li></ul><h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><ul><li>安装：<code>uv add pytest -U</code></li><li>启动方式：<ol><li>创建一个新文件添加<code>pytest.main()</code>。</li><li><code>pytest</code>：自动发现当前目录下的所有测试文件，执行所有测试用例。</li><li><code>pytest test_*.py</code>：执行指定的测试文件。</li><li><code>pytest test_*.py::test_func</code>：执行指定的测试函数。</li></ol></li></ul><h2 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h2><ul><li><p>结果种类</p><table><thead><tr><th>缩写</th><th>单词</th><th>含义</th></tr></thead><tbody><tr><td>.</td><td>passed</td><td>通过</td></tr><tr><td>F</td><td>failed</td><td>失败（用例执行报错）</td></tr><tr><td>E</td><td>error</td><td>出错（fixture执行报错）</td></tr><tr><td>s</td><td>skipped</td><td>跳过</td></tr><tr><td>X</td><td>xpassed</td><td>预期外的通过（不符合预期）</td></tr><tr><td>x</td><td>xfailed</td><td>预期内的失败（符合预期）</td></tr></tbody></table></li><li><p>用例发现规则和内容规则</p><ul><li>用例的发现规则——识别、加载用例的过程<br>步骤：<ol><li>遍历当前目录及子目录下的所有文件，例外：<code>venv</code>、<code>.*</code>。</li><li>打开<code>test_</code>开头或者<code>_test</code>结尾的python文件。</li><li>遍历所有<code>Test</code>开头的类（不过该类并非是用例）。</li><li>收集所有<code>test_</code>开头的<strong>函数或方法</strong>作为用例。</li></ol></li><li>用例的内容<ol><li>可调用（函数、方法、类、对象）。</li><li><code>test_</code>开头。</li><li>没有参数，但可以使用内置标记等手段使用参数。</li><li>没有返回值（8.4版本后加入）。</li></ol></li><li>练习：对加法函数进行断言。<div class="note note-info">            <p>注意本例里类和方法的命名方式，以及这种分组测试（封装）的设计思路。</p>          </div><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a, b</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Returns the sum of a and b.&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> a + b<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TestAdd</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_int</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Tests the add function.&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">assert</span> add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>) == <span class="hljs-number">5</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_str</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Tests the add function with string inputs.&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">assert</span> add(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>) == <span class="hljs-string">&quot;12&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_list</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Tests the add function with list inputs.&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">assert</span> add([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]) == [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]<br></code></pre></td></tr></table></figure></li></ul></li></ul><h2 id="配置框架"><a href="#配置框架" class="headerlink" title="配置框架"></a>配置框架</h2><ul><li>改变pytest的默认规则，方式有三种：<ul><li><strong>命令参数</strong>，例如<code>pytest -v</code>，<code>-</code>开头。</li><li>在根目录创建一个<strong>pytest.ini</strong>配置文件，小写字母。</li><li>环境变量（很有限），大写字母。</li></ul></li><li>获取配置值的方式：<code>pytest -h</code>。</li><li>常见的命令参数:<ul><li><code>-v</code>: 增加详细输出。</li><li><code>-s</code>: 在用例中正常使用<strong>输入输出</strong>*，默认情况下pytest会捕获输出。</li><li><code>-x</code>: 快速退出，一旦有用例失败就退出。</li></ul></li><li><code>-m</code>: 用例筛选例如<code>pytest -m web</code>，只执行标记为<code>web</code>的用例。</li></ul><h2 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h2><ul><li>用例标记，装饰器：<code>@pytest.mark.标记名</code>，例如<code>@pytest.mark.web</code>。</li><li>标记的作用：筛选用例、分组用例、添加元数据。</li><li>用户自定义标，<strong>仅用作用例筛选</strong>，例如<code>@pytest.mark.slow</code>。使用步骤：<ol><li>注册，命令参数或配置文件。 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[pytest]</span><br><br><span class="hljs-attr">markers</span> =<br>  api: 接口测试<br>  web: 慢速测试<br>  login: 登录测试<br></code></pre></td></tr></table></figure></li><li>标记，装饰器。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pytest<br><br><span class="hljs-meta">@pytest.mark.slow</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_slow_function</span>():<br>  <span class="hljs-keyword">assert</span> <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure></li><li>筛选，<code>pytest -m marker</code>。</li></ol></li></ul><ul><li>框架内置标记，可以<strong>增加特殊的执行效果</strong>，例如<code>@pytest.mark.skip</code>。<ul><li><code>skip</code>: 无条件跳过用例。</li><li><code>skipif</code>: 条件跳过用例。</li><li><code>xfail</code>: 预期失败。</li><li><code>parametrize</code>: 参数化用例。<br><strong>数据驱动测试&#x3D;参数化测试+数据文件</strong><br>含义是，根据数据文件的内容，动态决定用例的数量、内容。</li><li><code>usefixtures</code>: 使用fixture。</li></ul></li></ul><h2 id="数据驱动测试"><a href="#数据驱动测试" class="headerlink" title="数据驱动测试"></a>数据驱动测试</h2><ul><li>从数据文件中读取数据，以列表按顺序赋值给参数。</li><li>用例的数量由数据数量决定。<br>例子：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@pytest.mark.parametrize(<span class="hljs-params"><span class="hljs-string">&quot;a, b, c&quot;</span>, read_csv(<span class="hljs-params"><span class="hljs-string">&quot;data.csv&quot;</span></span>)</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_ddt</span>(<span class="hljs-params">self, a, b, c</span>):<br>    <span class="hljs-keyword">assert</span> add(a, b) == c <br></code></pre></td></tr></table></figure></li></ul><h2 id="夹具fixture"><a href="#夹具fixture" class="headerlink" title="夹具fixture"></a>夹具fixture</h2><ol><li>创建一个fixture。</li></ol>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@pytest.fixture</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>():<br>  <span class="hljs-comment"># 前置操作</span><br>  <span class="hljs-keyword">yield</span> <span class="hljs-comment"># 执行用例</span><br>  <span class="hljs-comment"># 后置操作</span><br></code></pre></td></tr></table></figure><ol start="2"><li>使用，以参数形式传递给用例。</li></ol>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_1</span>(<span class="hljs-params">f</span>):<br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure><ol start="3"><li>使用，标记。</li></ol>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@pytest.mark.usefixtures(<span class="hljs-params"><span class="hljs-string">&quot;fgh&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_2</span>():<br>  <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure><h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><ol><li>自动使用fixture。<ul><li>在配置文件中设置<code>autouse = True</code>。</li><li>在用例中直接使用，不需要传递参数。</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@pytest.fixture(<span class="hljs-params">autouse=<span class="hljs-literal">True</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>():<br>    <span class="hljs-comment"># 前置操作</span><br>    <span class="hljs-keyword">yield</span><br>    <span class="hljs-comment"># 后置操作</span><br></code></pre></td></tr></table></figure></li><li>依赖使用。<ul><li>在一个fixture中使用另一个fixture。</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@pytest.fixture</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">f1</span>():<br>    <span class="hljs-comment"># 前置操作</span><br>    <span class="hljs-keyword">yield</span><br>    <span class="hljs-comment"># 后置操作</span><br><br><span class="hljs-meta">@pytest.fixture</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">f2</span>(<span class="hljs-params">f1</span>):<br>    <span class="hljs-comment"># 使用f1的前置操作</span><br>    <span class="hljs-keyword">yield</span><br>    <span class="hljs-comment"># 使用f1的后置操作</span><br></code></pre></td></tr></table></figure></li><li>返回内容。</li><li>范围共享。</li></ol>]]></content>
     
     
     <categories>
@@ -129,9 +129,9 @@
       
       <tag>终端</tag>
       
-      <tag>记录</tag>
-      
       <tag>实践</tag>
+      
+      <tag>记录</tag>
       
       <tag>x-cmd</tag>
       
@@ -220,11 +220,11 @@
   
   
   <entry>
-    <title>《郑伯克段于鄢》筆記</title>
-    <link href="/2025/06/19/%E3%80%8A%E9%83%91%E4%BC%AF%E5%85%8B%E6%AE%B5%E4%BA%8E%E9%84%A2%E3%80%8B%E7%AC%94%E8%AE%B0/"/>
-    <url>/2025/06/19/%E3%80%8A%E9%83%91%E4%BC%AF%E5%85%8B%E6%AE%B5%E4%BA%8E%E9%84%A2%E3%80%8B%E7%AC%94%E8%AE%B0/</url>
+    <title>《齐桓公伐楚》笔记</title>
+    <link href="/2025/06/19/%E3%80%8A%E9%BD%90%E6%A1%93%E5%85%AC%E4%BC%90%E6%A5%9A%E3%80%8B%E7%AC%94%E8%AE%B0/"/>
+    <url>/2025/06/19/%E3%80%8A%E9%BD%90%E6%A1%93%E5%85%AC%E4%BC%90%E6%A5%9A%E3%80%8B%E7%AC%94%E8%AE%B0/</url>
     
-    <content type="html"><![CDATA[<h2 id="字、詞、表达記錄"><a href="#字、詞、表达記錄" class="headerlink" title="字、詞、表达記錄"></a>字、詞、表达記錄</h2><ol><li><strong>叔</strong>，生莊公及共叔段。古人命字常以伯（孟）、仲、叔、季表示長幼次序，但是會結合具體情況使用。在這裏，鄭莊公兄弟只有兩人，因此弟弟稱為“叔”。而“季”則用於兄弟多人的情況。</li><li><strong>亟</strong>，亟請於武公。讀做qì是，意屢次。也讀做jí，意急忙。</li><li><strong>都</strong>，大城。漢以後，“都”才指國都。<strong>補充：</strong> <strong>京</strong>，大。先秦時，“京師”連用才指國都。</li><li><strong>若&#x2F;奈&#x2F;如 + 之&#x2F;若 + 何</strong>，對他怎麼辦。語法上這是动词性凝固结构，是先秦特有的疑问短语，不可拆解。</li><li><strong>斃</strong>，倒下去。多行不義，必自斃。</li><li><strong>姑</strong>，暫且。本意是父親的母親、姐妹，或者丈夫的姐妹，她們往往展現出緩和、安撫、遷就、妥協的姿態，因此“姑”慢慢引申為一種處理事情的態度，這已經比較接近“暫且”的含義。</li><li><strong>暱</strong>，不義不暱。音nì，同“昵”，親近。這句話的意思是，段既然不義，就不能籠住民心。</li><li><strong>具</strong>，齊備、完整。具眼，意為眼力好，見識高；具瞻，意為眾人瞻仰。而具臣卻是指備位充數，不稱職的臣子。具臣可以理解為表面上完美的臣子，因為真正的“具臣”不可能存在，它對一個臣子的要求是方方面面，甚至是矛盾的。姑此說乃諷刺。而“具眼”、“具瞻”等是可以實現的。</li><li><strong>施</strong>，（潁考叔）愛其母，施及莊公。讀作yì，延伸，延續。</li></ol><h2 id="文章細節"><a href="#文章細節" class="headerlink" title="文章細節"></a>文章細節</h2><ol><li><blockquote><p>（姜氏）請京，（莊公）使（共叔段）居之，（人們）謂之京城大（tài）叔。</p></blockquote><p>杜预《春秋左传注》中說：“大叔，言寵之逾制，非禮也。大音泰。”</p></li><li><blockquote><p>既而大叔命西鄙北鄙貳於己。</p></blockquote><p> 貳，兩屬。這句話的意思是，不久之後，共叔段命令西部、北部邊邑的守臣效忠莊公的同時效忠自己。</p></li><li><blockquote><p>無生民心。</p></blockquote><p>這句話的意思是，不要是民眾產生二心。在古文語境裏，“民心”本就具有一心的預設，就像是個常識，這是對統治者一體的心。這個時候如果說生民心，那便在原本的心之外另一個心，也即二心。</p></li></ol><h2 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h2><p>說《春秋》微言大義，而《左傳》為其註解，可我讀了本篇後依然無法理解所謂“大義”。</p><p>文章開頭就讓人眉頭緊皺——姜氏因為生莊公時難產，所以討厭莊公。這讓我想起了帶小孩的場景，小孩子頑皮摔了一跤，很多大人有意無意地會引導小孩子把摔跤的責任歸咎於地不是好地。姑常常看到大人抱著小孩，邊拍打各種事物，邊說：“壞xx，惹我家寶哭了”。這個法子似乎真有效。姜氏就是這麽個小孩子，可難產怪不得地，更怪不得自己，所以是莊公的過錯。很多現代人也會有類似的心理，</p><p>再後來段與姜氏謀反被平定，莊公與之“隨而相見”，賦詩作樂，母子如初。態度轉變之快讓人難以理解。疼愛的小兒子被討厭的大兒子打敗了，她大兒子沒有深仇大恨；又或者，偏愛小兒子，意圖推翻大兒子，她也不覺得對大兒子有愧。這種時候，她沒有選擇硬剛到底，也沒有選擇真誠道歉。而是選擇把過去埋葬。這母親做得也太容易了。這就是歷史上的“普通人”，就像我們身邊常見的一個普通女生，沒有對自己人格的要求、反思，缺乏對他人的體諒、共情，而且不要臉。</p><p>對本文主旨的主流理解是揭露莊公的偽裝與奸詐。我覺得莊公之所以被認為惡，是因為他發現了道德的漏洞，現在叫“站在道德的高地”。這場事件裏，莊公是被置於危機的，叛亂的、不公的是段和姜氏，正因如此莊公利用了他之惡，將自己塑造成受害者，但是實際上他掌握了一切。無疑，莊公是權謀的高手，但是他是否是惡？我認為不是。他的做法是為了解決問題的同時獲得好名聲，那為什麼不做這些虛偽的鋪墊就無法獲得好名聲呢？莊公甫一即位，姜氏和段就小動作不斷，這時下手，可能會被說多疑猜忌、心胸狹小云云。段日益膨脹時下手，罪證不足難以根除，若它日再起禍患，可能會被評價為優柔寡斷。以上是我的猜測，但是可以想到想要在所有人嘴裏都是好名聲是很難的事情，不僅得靠個人品德，還得看氣運，很多事情發生之前都無法準確預測。姜氏可以開城門做內應就說明了問題，姜氏絕不是省油的燈，她不是有德之人，但有一定權勢。莊公的處境也有一定的危險性。所以莊公選擇先隱忍，一方面可以一擊必殺，另一方面也可以麻痺對手降低自己的風險，同時也可以儘可能獲得好名聲。為了保全自己使用計謀，無可厚非。至於他有沒有為了好名聲偽裝自己，誰也不知道，況且是與不是也並非重要的事情。倘若莊公為了名聲選擇了更危險更不理智的方法，那才是真正的虛偽。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="字、詞、表达記錄"><a href="#字、詞、表达記錄" class="headerlink" title="字、詞、表达記錄"></a>字、詞、表达記錄</h2><ol><li>夾輔，輔佐。</li></ol><h2 id="文章細節"><a href="#文章細節" class="headerlink" title="文章細節"></a>文章細節</h2><ol><li><blockquote><p>唯是風馬牛不相及也</p></blockquote><p>風，指發情。這句話的意思是，發情了的牲畜也碰不到一起。</p></li></ol><h2 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h2>]]></content>
     
     
     <categories>
@@ -247,11 +247,11 @@
   
   
   <entry>
-    <title>《齐桓公伐楚》笔记</title>
-    <link href="/2025/06/19/%E3%80%8A%E9%BD%90%E6%A1%93%E5%85%AC%E4%BC%90%E6%A5%9A%E3%80%8B%E7%AC%94%E8%AE%B0/"/>
-    <url>/2025/06/19/%E3%80%8A%E9%BD%90%E6%A1%93%E5%85%AC%E4%BC%90%E6%A5%9A%E3%80%8B%E7%AC%94%E8%AE%B0/</url>
+    <title>《郑伯克段于鄢》筆記</title>
+    <link href="/2025/06/19/%E3%80%8A%E9%83%91%E4%BC%AF%E5%85%8B%E6%AE%B5%E4%BA%8E%E9%84%A2%E3%80%8B%E7%AC%94%E8%AE%B0/"/>
+    <url>/2025/06/19/%E3%80%8A%E9%83%91%E4%BC%AF%E5%85%8B%E6%AE%B5%E4%BA%8E%E9%84%A2%E3%80%8B%E7%AC%94%E8%AE%B0/</url>
     
-    <content type="html"><![CDATA[<h2 id="字、詞、表达記錄"><a href="#字、詞、表达記錄" class="headerlink" title="字、詞、表达記錄"></a>字、詞、表达記錄</h2><ol><li>夾輔，輔佐。</li></ol><h2 id="文章細節"><a href="#文章細節" class="headerlink" title="文章細節"></a>文章細節</h2><ol><li><blockquote><p>唯是風馬牛不相及也</p></blockquote><p>風，指發情。這句話的意思是，發情了的牲畜也碰不到一起。</p></li></ol><h2 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h2>]]></content>
+    <content type="html"><![CDATA[<h2 id="字、詞、表达記錄"><a href="#字、詞、表达記錄" class="headerlink" title="字、詞、表达記錄"></a>字、詞、表达記錄</h2><ol><li><strong>叔</strong>，生莊公及共叔段。古人命字常以伯（孟）、仲、叔、季表示長幼次序，但是會結合具體情況使用。在這裏，鄭莊公兄弟只有兩人，因此弟弟稱為“叔”。而“季”則用於兄弟多人的情況。</li><li><strong>亟</strong>，亟請於武公。讀做qì是，意屢次。也讀做jí，意急忙。</li><li><strong>都</strong>，大城。漢以後，“都”才指國都。<strong>補充：</strong> <strong>京</strong>，大。先秦時，“京師”連用才指國都。</li><li><strong>若&#x2F;奈&#x2F;如 + 之&#x2F;若 + 何</strong>，對他怎麼辦。語法上這是动词性凝固结构，是先秦特有的疑问短语，不可拆解。</li><li><strong>斃</strong>，倒下去。多行不義，必自斃。</li><li><strong>姑</strong>，暫且。本意是父親的母親、姐妹，或者丈夫的姐妹，她們往往展現出緩和、安撫、遷就、妥協的姿態，因此“姑”慢慢引申為一種處理事情的態度，這已經比較接近“暫且”的含義。</li><li><strong>暱</strong>，不義不暱。音nì，同“昵”，親近。這句話的意思是，段既然不義，就不能籠住民心。</li><li><strong>具</strong>，齊備、完整。具眼，意為眼力好，見識高；具瞻，意為眾人瞻仰。而具臣卻是指備位充數，不稱職的臣子。具臣可以理解為表面上完美的臣子，因為真正的“具臣”不可能存在，它對一個臣子的要求是方方面面，甚至是矛盾的。姑此說乃諷刺。而“具眼”、“具瞻”等是可以實現的。</li><li><strong>施</strong>，（潁考叔）愛其母，施及莊公。讀作yì，延伸，延續。</li></ol><h2 id="文章細節"><a href="#文章細節" class="headerlink" title="文章細節"></a>文章細節</h2><ol><li><blockquote><p>（姜氏）請京，（莊公）使（共叔段）居之，（人們）謂之京城大（tài）叔。</p></blockquote><p>杜预《春秋左传注》中說：“大叔，言寵之逾制，非禮也。大音泰。”</p></li><li><blockquote><p>既而大叔命西鄙北鄙貳於己。</p></blockquote><p> 貳，兩屬。這句話的意思是，不久之後，共叔段命令西部、北部邊邑的守臣效忠莊公的同時效忠自己。</p></li><li><blockquote><p>無生民心。</p></blockquote><p>這句話的意思是，不要是民眾產生二心。在古文語境裏，“民心”本就具有一心的預設，就像是個常識，這是對統治者一體的心。這個時候如果說生民心，那便在原本的心之外另一個心，也即二心。</p></li></ol><h2 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h2><p>說《春秋》微言大義，而《左傳》為其註解，可我讀了本篇後依然無法理解所謂“大義”。</p><p>文章開頭就讓人眉頭緊皺——姜氏因為生莊公時難產，所以討厭莊公。這讓我想起了帶小孩的場景，小孩子頑皮摔了一跤，很多大人有意無意地會引導小孩子把摔跤的責任歸咎於地不是好地。姑常常看到大人抱著小孩，邊拍打各種事物，邊說：“壞xx，惹我家寶哭了”。這個法子似乎真有效。姜氏就是這麽個小孩子，可難產怪不得地，更怪不得自己，所以是莊公的過錯。很多現代人也會有類似的心理，</p><p>再後來段與姜氏謀反被平定，莊公與之“隨而相見”，賦詩作樂，母子如初。態度轉變之快讓人難以理解。疼愛的小兒子被討厭的大兒子打敗了，她大兒子沒有深仇大恨；又或者，偏愛小兒子，意圖推翻大兒子，她也不覺得對大兒子有愧。這種時候，她沒有選擇硬剛到底，也沒有選擇真誠道歉。而是選擇把過去埋葬。這母親做得也太容易了。這就是歷史上的“普通人”，就像我們身邊常見的一個普通女生，沒有對自己人格的要求、反思，缺乏對他人的體諒、共情，而且不要臉。</p><p>對本文主旨的主流理解是揭露莊公的偽裝與奸詐。我覺得莊公之所以被認為惡，是因為他發現了道德的漏洞，現在叫“站在道德的高地”。這場事件裏，莊公是被置於危機的，叛亂的、不公的是段和姜氏，正因如此莊公利用了他之惡，將自己塑造成受害者，但是實際上他掌握了一切。無疑，莊公是權謀的高手，但是他是否是惡？我認為不是。他的做法是為了解決問題的同時獲得好名聲，那為什麼不做這些虛偽的鋪墊就無法獲得好名聲呢？莊公甫一即位，姜氏和段就小動作不斷，這時下手，可能會被說多疑猜忌、心胸狹小云云。段日益膨脹時下手，罪證不足難以根除，若它日再起禍患，可能會被評價為優柔寡斷。以上是我的猜測，但是可以想到想要在所有人嘴裏都是好名聲是很難的事情，不僅得靠個人品德，還得看氣運，很多事情發生之前都無法準確預測。姜氏可以開城門做內應就說明了問題，姜氏絕不是省油的燈，她不是有德之人，但有一定權勢。莊公的處境也有一定的危險性。所以莊公選擇先隱忍，一方面可以一擊必殺，另一方面也可以麻痺對手降低自己的風險，同時也可以儘可能獲得好名聲。為了保全自己使用計謀，無可厚非。至於他有沒有為了好名聲偽裝自己，誰也不知道，況且是與不是也並非重要的事情。倘若莊公為了名聲選擇了更危險更不理智的方法，那才是真正的虛偽。</p>]]></content>
     
     
     <categories>
@@ -296,9 +296,9 @@
       
       <tag>工具</tag>
       
-      <tag>记录</tag>
-      
       <tag>实践</tag>
+      
+      <tag>记录</tag>
       
       <tag>Hexo</tag>
       
@@ -389,9 +389,9 @@
       
       <tag>终端</tag>
       
-      <tag>记录</tag>
-      
       <tag>实践</tag>
+      
+      <tag>记录</tag>
       
       <tag>x-cmd</tag>
       
@@ -451,11 +451,11 @@
     
     <tags>
       
+      <tag>记录</tag>
+      
       <tag>杂谈</tag>
       
       <tag>日志</tag>
-      
-      <tag>记录</tag>
       
       <tag>随笔</tag>
       
@@ -484,11 +484,11 @@
     
     <tags>
       
+      <tag>记录</tag>
+      
       <tag>杂谈</tag>
       
       <tag>日志</tag>
-      
-      <tag>记录</tag>
       
       <tag>随笔</tag>
       
