@@ -3,7 +3,8 @@ title: neovim插件记录、用法
 date: 2025-07-07 17:39:10
 categories: [笔记, neovim]
 tags: [工具, 笔记, 终端, 编辑器, neovim]
-index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg
+cover: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg
+series: neovim
 ---
 
 ## [bullets-vim](https://github.com/bullets-vim/bullets.vim)
@@ -30,7 +31,6 @@ index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E
   4. 等等。
 
 配置：[详情见此链接](https://github.com/MeanderingProgrammer/render-markdown.nvim?tab=readme-ov-file#setup)
-
 {% note info %}
 要想舒舒服服编辑markdown文档还需要关闭拼写检查。
 {% endnote %}

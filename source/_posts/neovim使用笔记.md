@@ -3,7 +3,8 @@ title: 🐆neovim使用笔记
 date: 2025-06-20 10:24:35
 categories: [笔记, neovim]
 tags: [工具, 笔记, 终端, 编辑器, neovim]
-index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg
+cover: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg
+series: neovim
 ---
 
 # 🐆neovim使用笔记

@@ -3,7 +3,7 @@ title: 🕷️markdown语法笔记
 date: 2025-06-16 11:27:13
 categories: [笔记, markdown]
 tags: [markdown]
-index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%8F%AF%E7%88%B1%E8%B7%B3%E8%9B%9B.jpg
+cover: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%8F%AF%E7%88%B1%E8%B7%B3%E8%9B%9B.jpg
 ---
 
 # 🕷️markdown语法笔记
@@ -63,9 +63,11 @@ index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E
       ```
 
   2. 三种使用方式
-     * 只显示图标```{% icon icon-github-fill %}```:{% icon icon-github-fill %}
-     * 带链接的图标```{% icon icon-github-fill https://github.com/weimoyo %}```:{% icon icon-github-fill <https://github.com/weimoyo> %}
-     * 带链接和提示的图标```{% icon icon-github-fill https://github.com/weimoyo GitHub %}```:{% icon icon-github-fill <https://github.com/weimoyo> GitHub %}
+
+   * 只显示图标```<i class="fa-brands fa-github"></i>```:<i class="fa-brands fa-github"></i>
+   * 带链接的图标```<a href="https://github.com"><i class="fab fa-github"></i></a>```:<a href="https://github.com"><i class="fab fa-github"></i></a>
+   * 带链接和提示的图标```<a href="https://github.com/weimoyo" title="https://github.com/weimoyo"><i class="fab fa-github"></i></a>```:<a href="https://github.com/weimoyo" title="https://github.com/weimoyo"><i class="fab fa-github"></i></a>
+
 
 ### 拼音
 

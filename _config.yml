@@ -101,8 +101,8 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: fluid
-theme_config: _config.fluid.yml
+theme: butterfly
+theme_config: _config.butterfly.yml
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -110,3 +110,14 @@ deploy:
   type: git
   repository: git@github.com:weimoyo/weimoyo.github.io.git
   branch: main
+
+# markdown
+markdown:
+  plugins:
+    - '@renbaoshuo/markdown-it-katex'
+
+search:
+  path: search.json
+  field: post
+  content: true
+  format: striptags

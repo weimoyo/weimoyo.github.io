@@ -3,7 +3,8 @@ title: pytest笔记（一）
 date: 2025-07-07 10:35:36
 categories: [笔记, python]
 tags: [笔记, python, pytest, 测试, 测试框架]
-index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%99%BD%E5%8C%96%E8%9F%92%E8%9B%87.jpg
+cover: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%99%BD%E5%8C%96%E8%9F%92%E8%9B%87.jpg
+series: pytest笔记（一）
 ---
 
 ## 测试框架的作用
@@ -181,5 +182,5 @@ index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%99%BD%E
        yield
        # 使用f1的后置操作
    ```
-1. 返回内容。
+3. 返回内容。
 4. 范围共享。
