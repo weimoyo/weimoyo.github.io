@@ -1,0 +1,76 @@
+---
+title: doc
+date: 2025-07-09 22:32:20
+layout: 
+comments: false
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文档加密解密工具</title>
+    <link rel="stylesheet" href="css/doc.css">
+</head>
+<body>
+    <div class="container">
+        <h1>文档加密解密工具</h1>
+        
+        <!-- 密钥输入区域 -->
+        <div class="key-section">
+            <h2>密钥设置</h2>
+            <div class="input-group">
+                <input 
+                    type="password" 
+                    id="keyInput" 
+                    placeholder="输入64字符十六进制密钥（AES-256）"
+                    autocomplete="off"
+                >
+                <button id="generateKeyBtn">生成新密钥</button>
+            </div>
+            <div id="keyInfo" class="key-info"></div>
+        </div>
+        
+        <!-- 加密区域 -->
+        <div class="encrypt-section">
+            <h2>加密文档</h2>
+            <div class="input-group">
+                <textarea 
+                    id="plainInput" 
+                    placeholder="输入要加密的文本内容..." 
+                    rows="5"
+                ></textarea>
+            </div>
+            <div class="button-group">
+                <button id="encryptBtn">加密文档</button>
+            </div>
+            <div id="encryptResult" class="result-box">
+                加密结果将显示在这里...
+            </div>
+        </div>
+        
+        <!-- 解密区域 -->
+        <div class="decrypt-section">
+            <h2>解密文档</h2>
+            <div class="input-group">
+                <textarea 
+                    id="cipherInput" 
+                    placeholder="输入要解密的Base64密文..." 
+                    rows="5"
+                >
+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
+                </textarea>
+            </div>
+            <div class="button-group">
+                <button id="decryptBtn">解密文档</button>
+            </div>
+            <div id="decryptResult" class="result-box">
+                解密结果将显示在这里...
+            </div>
+        </div>
+    </div>
+
+    <script src="js/doc.js"></script>
+</body>
+</html>
