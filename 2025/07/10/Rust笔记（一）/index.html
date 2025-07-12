@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Rust笔记（一） | Zone of Lix</title><meta name="author" content="lix"><meta name="copyright" content="lix"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="开端 参考Rust语言圣经(Rust Course) Windows上的Rust有两个版本MSVC和GNU，这里涉及到Microsoft C++ Build Tools(对应于MSVC版本，官方推荐)安装c++环境，或者MSYS2(对应于GNU版本)安装c++环境。  其它安装的细节，以及在其它系统上的安装方式，请仔细阅读以上参考文档。 可以使用命令rustup doc查看文档。 在neovim里">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rust笔记（一）">
+<meta property="og:url" content="http://lixiang.us.kg/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="Zone of Lix">
+<meta property="og:description" content="开端 参考Rust语言圣经(Rust Course) Windows上的Rust有两个版本MSVC和GNU，这里涉及到Microsoft C++ Build Tools(对应于MSVC版本，官方推荐)安装c++环境，或者MSYS2(对应于GNU版本)安装c++环境。  其它安装的细节，以及在其它系统上的安装方式，请仔细阅读以上参考文档。 可以使用命令rustup doc查看文档。 在neovim里">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png">
+<meta property="article:published_time" content="2025-07-10T01:56:50.000Z">
+<meta property="article:modified_time" content="2025-07-12T14:46:39.365Z">
+<meta property="article:author" content="lix">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="编程语言">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Rust笔记（一）",
+  "url": "http://lixiang.us.kg/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/",
+  "image": "https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png",
+  "datePublished": "2025-07-10T01:56:50.000Z",
+  "dateModified": "2025-07-12T14:46:39.365Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "lix",
+      "url": "https://github.com/weimoyo"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3.jpg"><link rel="canonical" href="http://lixiang.us.kg/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="APsH-GEw4PI4YYUs1b1E_JDMlqWzgcOCra9o6YWPFdI"/><meta name="baidu-site-verification" content="codeva-PlF3y1zuff"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0f35df52836553679a874c3cb7af2f5a";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Rust笔记（一）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-color: #190d0c;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/todo/"><i class="fa-fw fas fa-tasks"></i><span> 事单</span></a></li><li><a class="site-page child" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/course/"><i class="fa-fw fas fa-chalkboard-teacher"></i><span> 课单</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zone of Lix</span></a><a class="nav-page-title" href="/"><span class="site-name">Rust笔记（一）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/todo/"><i class="fa-fw fas fa-tasks"></i><span> 事单</span></a></li><li><a class="site-page child" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/course/"><i class="fa-fw fas fa-chalkboard-teacher"></i><span> 课单</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Rust笔记（一）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-10T01:56:50.000Z" title="发表于 2025-07-10 09:56:50">2025-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-12T14:46:39.365Z" title="更新于 2025-07-12 22:46:39">2025-07-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/Rust/">Rust</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;本文于&quot;,&quot;messageNext&quot;:&quot;天前最后一次更新，内容可能已经过时。&quot;,&quot;postUpdate&quot;:&quot;2025-07-12 22:46:39&quot;}" hidden></div><h1>开端</h1>
+<p>参考<a target="_blank" rel="noopener" href="https://course.rs/first-try/installation.html">Rust语言圣经(Rust Course)</a></p>
+<div class="note warning simple"><p>Windows上的Rust有两个版本MSVC和GNU，这里涉及到Microsoft C++ Build Tools(对应于MSVC版本，官方推荐)安装c++环境，或者MSYS2(对应于GNU版本)安装c++环境。</p>
+</div>
+<p>其它安装的细节，以及在其它系统上的安装方式，请仔细阅读以上参考文档。<br>
+可以使用命令<code>rustup doc</code>查看文档。</p>
+<h2 id="在neovim里配置Rust开发环境">在neovim里配置Rust开发环境</h2>
+<ol>
+<li>安装<code>rust-analyzer</code>，这是Rust的LSP，需要对&quot;neovim/nvim-lspconfig&quot;进行配置。</li>
+<li>安装&quot;saecki/crates.nvim&quot;插件，这个插件用来提供依赖信息的增强支持。<br>
+以上两者的配置如下plugins\lsp.lua所示：</li>
+</ol>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">&quot;neovim/nvim-lspconfig&quot;</span>,</span><br><span class="line">    opts = &#123;</span><br><span class="line">      inlay_hints = &#123; enable = <span class="literal">true</span> &#125;,</span><br><span class="line">      servers = &#123;</span><br><span class="line">        lua_ls = &#123;</span><br><span class="line">          settings = &#123;</span><br><span class="line">            Lua = &#123;</span><br><span class="line">              hint = &#123; enable = <span class="literal">true</span> &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">        [<span class="string">&quot;rust_analyzer&quot;</span>] = &#123;</span><br><span class="line">          settings = &#123;</span><br><span class="line">            cargo = &#123; allFeatures = <span class="literal">true</span> &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">&quot;saecki/crates.nvim&quot;</span>,</span><br><span class="line">    tag = <span class="string">&quot;stable&quot;</span>,</span><br><span class="line">    <span class="built_in">config</span> = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">      <span class="built_in">require</span>(<span class="string">&quot;crates&quot;</span>).setup(&#123;&#125;)</span><br><span class="line">    <span class="keyword">end</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>配置Rust调试，参考<a target="_blank" rel="noopener" href="https://github.com/mfussenegger/nvim-dap/wiki/C-C---Rust-(via--codelldb)">nvim-dap</a><br>
+具体配置如plugin\dap-rust.lua所示，需要修改codelldb.exe的路径：</li>
+</ol>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">  <span class="string">&quot;mfussenegger/nvim-dap&quot;</span>,</span><br><span class="line">  <span class="comment">-- 强烈推荐安装 nvim-dap-ui 来获得更好的调试 UI 体验</span></span><br><span class="line">  dependencies = &#123;</span><br><span class="line">    <span class="string">&quot;rcarriga/nvim-dap-ui&quot;</span>,</span><br><span class="line">    <span class="string">&quot;nvim-neotest/nvim-nio&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">config</span> = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> dap = <span class="built_in">require</span>(<span class="string">&quot;dap&quot;</span>)</span><br><span class="line">    <span class="keyword">local</span> dapui = <span class="built_in">require</span>(<span class="string">&quot;dapui&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- =================================================================</span></span><br><span class="line">    <span class="comment">-- 1. 适配器定义 (Adapter Definition)</span></span><br><span class="line">    <span class="comment">-- 这部分内容来自文档，并针对你的 v1.11.5 版本和 Windows 环境进行了适配</span></span><br><span class="line">    <span class="comment">-- =================================================================</span></span><br><span class="line">    dap.adapters.codelldb = &#123;</span><br><span class="line">      <span class="built_in">type</span> = <span class="string">&quot;server&quot;</span>,</span><br><span class="line">      port = <span class="string">&quot;$&#123;port&#125;&quot;</span>,</span><br><span class="line">      executable = &#123;</span><br><span class="line">        <span class="comment">-- !!! 重要 !!! 请将这里的路径替换为你第一步中解压得到的真实路径。</span></span><br><span class="line">        <span class="comment">-- 在 Lua 字符串中，即使是 Windows 路径，也建议使用正斜杠 &quot;/&quot;</span></span><br><span class="line">        command = <span class="string">&quot;C:/Users/weimo/AppData/Local/nvim/src/lldb/extension/adapter/codelldb.exe&quot;</span>,</span><br><span class="line"></span><br><span class="line">        args = &#123; <span class="string">&quot;--port&quot;</span>, <span class="string">&quot;$&#123;port&#125;&quot;</span> &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- 根据文档建议，在 Windows 上，你可能需要设置这个为 false</span></span><br><span class="line">        <span class="comment">-- 这能确保 Neovim 退出时，codelldb 进程也能被正确关闭</span></span><br><span class="line">        detached = <span class="literal">false</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- =================================================================</span></span><br><span class="line">    <span class="comment">-- 2. 调试配置 (Debug Configuration)</span></span><br><span class="line">    <span class="comment">-- 这部分告诉 nvim-dap 如何启动一个 Rust 程序的调试会话</span></span><br><span class="line">    <span class="comment">-- =================================================================</span></span><br><span class="line">    dap.configurations.rust = &#123;</span><br><span class="line">      &#123;</span><br><span class="line">        name = <span class="string">&quot;Launch file (codelldb)&quot;</span>,</span><br><span class="line">        <span class="built_in">type</span> = <span class="string">&quot;codelldb&quot;</span>, <span class="comment">-- 必须与上面 dap.adapters 中定义的名字一致</span></span><br><span class="line">        request = <span class="string">&quot;launch&quot;</span>,</span><br><span class="line">        program = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">          <span class="comment">-- 启动时会提示你输入要调试的可执行文件的路径</span></span><br><span class="line">          <span class="comment">-- 默认会帮你填充到 cargo 的 debug 输出目录</span></span><br><span class="line">          <span class="keyword">return</span> vim.fn.<span class="built_in">input</span>(<span class="string">&quot;Path to executable: &quot;</span>, vim.fn.getcwd() .. <span class="string">&quot;/target/debug/&quot;</span>, <span class="string">&quot;file&quot;</span>)</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line">        cwd = <span class="string">&quot;$&#123;workspaceFolder&#125;&quot;</span>,</span><br><span class="line">        stopOnEntry = <span class="literal">false</span>,</span><br><span class="line">        <span class="comment">-- 如果你的程序需要命令行参数，可以像下面这样添加</span></span><br><span class="line">        <span class="comment">-- args = &#123; &quot;参数1&quot;, &quot;参数2&quot; &#125;,</span></span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 如果你想 C 和 C++ 也使用这个配置，可以取消下面的注释</span></span><br><span class="line">    <span class="comment">-- dap.configurations.c = dap.configurations.rust</span></span><br><span class="line">    <span class="comment">-- dap.configurations.cpp = dap.configurations.rust</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- =================================================================</span></span><br><span class="line">    <span class="comment">-- 3. DAP UI 配置和事件监听 (DAP UI Setup)</span></span><br><span class="line">    <span class="comment">-- =================================================================</span></span><br><span class="line">    dapui.setup(&#123;</span><br><span class="line">      <span class="comment">-- 布局配置: 定义了哪些窗口以及它们如何排列</span></span><br><span class="line">      layouts = &#123;</span><br><span class="line">        &#123;</span><br><span class="line">          elements = &#123;</span><br><span class="line">            <span class="comment">-- 左侧窗口: 作用域和堆栈</span></span><br><span class="line">            &#123; id = <span class="string">&quot;scopes&quot;</span>, size = <span class="number">0.5</span> &#125;, <span class="comment">-- 60% 的空间给变量作用域</span></span><br><span class="line">            &#123; id = <span class="string">&quot;stacks&quot;</span>, size = <span class="number">0.5</span> &#125;, <span class="comment">-- 40% 的空间给调用堆栈</span></span><br><span class="line">          &#125;,</span><br><span class="line">          size = <span class="number">80</span>, <span class="comment">-- 左侧边栏总共占用 40 列的宽度</span></span><br><span class="line">          position = <span class="string">&quot;left&quot;</span>, <span class="comment">-- 位置在左边</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          elements = &#123;</span><br><span class="line">            <span class="comment">-- 底部窗口: REPL 和 Console</span></span><br><span class="line">            &#123; id = <span class="string">&quot;repl&quot;</span>, size = <span class="number">0.5</span> &#125;, <span class="comment">-- 50% 空间给 REPL</span></span><br><span class="line">            &#123; id = <span class="string">&quot;console&quot;</span>, size = <span class="number">0.5</span> &#125;, <span class="comment">-- 50% 空间给程序输出</span></span><br><span class="line">          &#125;,</span><br><span class="line">          size = <span class="number">20</span>, <span class="comment">-- 底部面板总共占用 10 行的高度</span></span><br><span class="line">          position = <span class="string">&quot;bottom&quot;</span>, <span class="comment">-- 位置在底部</span></span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">-- 其他 UI 选项</span></span><br><span class="line">      floating = &#123;</span><br><span class="line">        max_height = <span class="literal">nil</span>, <span class="comment">-- 浮动窗口的最大高度 (nil 表示无限制)</span></span><br><span class="line">        max_width = <span class="literal">nil</span>, <span class="comment">-- 浮动窗口的最大宽度 (nil 表示无限制)</span></span><br><span class="line">        border = <span class="string">&quot;rounded&quot;</span>, <span class="comment">-- 浮动窗口边框样式</span></span><br><span class="line">        mappings = &#123;</span><br><span class="line">          <span class="built_in">close</span> = &#123; <span class="string">&quot;q&quot;</span>, <span class="string">&quot;&lt;Esc&gt;&quot;</span> &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">-- 在变量和监视窗口中显示值的具体实现</span></span><br><span class="line">      render = &#123;</span><br><span class="line">        max_value_lines = <span class="number">1000</span>, <span class="comment">-- 显示值的最大行数</span></span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 在调试会话开始时自动打开 DAP UI，在结束时自动关闭</span></span><br><span class="line">    dap.listeners.after.event_initialized[<span class="string">&quot;dapui_config&quot;</span>] = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">      dapui.<span class="built_in">open</span>()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    dap.listeners.before.event_terminated[<span class="string">&quot;dapui_config&quot;</span>] = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">      dapui.<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    dap.listeners.before.event_exited[<span class="string">&quot;dapui_config&quot;</span>] = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">      dapui.<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- =================================================================</span></span><br><span class="line">    <span class="comment">-- 4. 快捷键 (Keymaps)</span></span><br><span class="line">    <span class="comment">-- =================================================================</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 基础调试快捷键 (使用 &lt;Leader&gt;d 前缀)</span></span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;Leader&gt;db&quot;</span>, dap.toggle_breakpoint, &#123; desc = <span class="string">&quot;[DAP] 切换断点&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;Leader&gt;dc&quot;</span>, dap.continue, &#123; desc = <span class="string">&quot;[DAP] 继续&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;Leader&gt;do&quot;</span>, dap.step_over, &#123; desc = <span class="string">&quot;[DAP] 单步跳过&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;Leader&gt;di&quot;</span>, dap.step_into, &#123; desc = <span class="string">&quot;[DAP] 单步进入&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;Leader&gt;du&quot;</span>, dap.step_out, &#123; desc = <span class="string">&quot;[DAP] 单步跳出&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;Leader&gt;dr&quot;</span>, dap.repl.<span class="built_in">open</span>, &#123; desc = <span class="string">&quot;[DAP] 打开REPL&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;Leader&gt;dl&quot;</span>, dap.run_last, &#123; desc = <span class="string">&quot;[DAP] 运行上次配置&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(&#123; <span class="string">&quot;n&quot;</span>, <span class="string">&quot;v&quot;</span> &#125;, <span class="string">&quot;&lt;Leader&gt;dK&quot;</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">      dapui.eval()</span><br><span class="line">    <span class="keyword">end</span>, &#123; desc = <span class="string">&quot;[DAP] 查看变量值&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;Leader&gt;dt&quot;</span>, dap.terminate, &#123; desc = <span class="string">&quot;[DAP] 终止调试&quot;</span> &#125;) <span class="comment">-- 新增：终止调试</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 传统 IDE 风格的 F 功能键 (冗余快捷键)</span></span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;F5&gt;&quot;</span>, dap.continue, &#123; desc = <span class="string">&quot;[DAP] 继续 (F5)&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;F6&gt;&quot;</span>, dap.pause, &#123; desc = <span class="string">&quot;[DAP] 暂停 (F6)&quot;</span> &#125;) <span class="comment">-- 新增：暂停功能</span></span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;F7&gt;&quot;</span>, dap.step_out, &#123; desc = <span class="string">&quot;[DAP] 单步跳出 (F7)&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;F8&gt;&quot;</span>, dap.step_over, &#123; desc = <span class="string">&quot;[DAP] 单步跳过 (F8)&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;F9&gt;&quot;</span>, dap.toggle_breakpoint, &#123; desc = <span class="string">&quot;[DAP] 切换断点 (F9)&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;F10&gt;&quot;</span>, dap.step_into, &#123; desc = <span class="string">&quot;[DAP] 单步进入 (F10)&quot;</span> &#125;)</span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;F12&gt;&quot;</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">      dapui.toggle()</span><br><span class="line">    <span class="keyword">end</span>, &#123; desc = <span class="string">&quot;[DAP] 切换UI (F11)&quot;</span> &#125;) <span class="comment">-- 新增：方便地显示/隐藏UI</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Shift + F* 快捷键</span></span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;S-F5&gt;&quot;</span>, dap.terminate, &#123; desc = <span class="string">&quot;[DAP] 终止调试 (Shift+F5)&quot;</span> &#125;) <span class="comment">-- 对应VSCode的Shift+F5</span></span><br><span class="line">    vim.keymap.set(<span class="string">&quot;n&quot;</span>, <span class="string">&quot;&lt;S-F8&gt;&quot;</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">      dap.run_to_cursor()</span><br><span class="line">    <span class="keyword">end</span>, &#123; desc = <span class="string">&quot;[DAP] 运行到光标处 (Shift+F8)&quot;</span> &#125;)</span><br><span class="line">  <span class="keyword">end</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="调试小技巧技巧">调试小技巧技巧</h2>
+<p>这些快捷键与我的配置有关。</p>
+<ol>
+<li>不熟悉快捷键时可以pin一个快捷键截图。</li>
+<li>善用<code>&lt;C+方向键</code>调整窗口大小。</li>
+<li><code>&lt;leader&gt;dK</code>可以查看光标位置的变量值。</li>
+<li><code>&lt;leader&gt;dr</code>可以打开REPL，能够输入表达式并查看结果。</li>
+</ol>
+<h2 id="Cargo">Cargo</h2>
+<ul>
+<li>cargo项目的主目录结构是有要求的
+<ul>
+<li><code>Cargo.toml</code>、<code>src/</code>在项目顶层。</li>
+<li>源代码<strong>全都</strong>在<code>src/</code>目录下。</li>
+<li>使用<code>cargo new &lt;name&gt;</code>命令创建新项目时，Cargo会自动创建<code>Cargo.toml</code>和<code>src/main.rs</code>文件。</li>
+<li>也可以使用<code>cargo init &lt;name&gt;</code>命令在当前目录初始化Cargo项目。</li>
+</ul>
+</li>
+<li><code>cargo build</code>命令会编译当前目录下的Cargo项目。
+<ul>
+<li>编译结果会放在<code>target/debug/</code>目录下。</li>
+<li>同时会生成<code>cargo.lock</code>文件，记录依赖的版本信息。</li>
+<li>如果需要编译成发布版本，编译器会对代码进行优化，编译时间更长，但执行更快，可以使用<code>cargo build --release</code>，结果会放在<code>target/release/</code>目录下。j</li>
+</ul>
+</li>
+<li><code>cargo run</code>命令会<strong>编译并运行</strong>当前目录下的Cargo项目。
+<ul>
+<li>但是如果项目<strong>没有修改</strong>，Cargo会<strong>跳过</strong>编译步骤，直接运行上次编译的结果。</li>
+</ul>
+</li>
+<li><code>cargo check</code>可以检查代码是否有错误，但不会生成可执行文件。
+<ul>
+<li>它比<code>cargo build</code>快很多，这对于<strong>快速检查代码</strong>很有用，尤其是在开发过程中。</li>
+</ul>
+</li>
+<li><code>[dependencies]</code>，<code>rand = &quot;0.9.1&quot;</code>与<code>rand = &quot;^0.9.1&quot;</code>等价。
+<ul>
+<li><code>^</code>表示兼容版本，允许使用<code>0.9.x</code>版本。</li>
+<li><code>~</code>表示兼容次版本，兼容范围可能与<code>^</code>一致或小一点。</li>
+<li><code>=</code>表示精确版本，必须使用<code>0.9.1</code>。</li>
+</ul>
+</li>
+<li><code>cargo update</code>命令会更新依赖到最新的兼容版本。
+<ul>
+<li>它会修改<code>Cargo.lock</code>文件，但不会修改<code>Cargo.toml</code>文件。</li>
+</ul>
+</li>
+</ul>
+<h1>发展</h1>
+<h2 id="数据">数据</h2>
+<h3 id="变量与常量">变量与常量</h3>
+<p>变量分成<strong>可变变量</strong>和<strong>不可变变量</strong>，都需要使用<code>let</code>声明。</p>
+<ul>
+<li>可变变量需要额外加上<code>mut</code>。</li>
+</ul>
+<p>常量使用<code>const</code>声明，必须指定类型。</p>
+<div class="note primary simple"><p>不可变变量与常量的区别</p>
+</div>
+<ul>
+<li>不可变变量可以在运行时计算值，常量必须在<strong>编译</strong>时确定。</li>
+<li>不可变变量的特性：<strong>遮蔽</strong>，重新声明以覆盖。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">x</span> = <span class="number">5</span>; <span class="comment">// 不可变变量</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">x</span> = <span class="number">6</span>; <span class="comment">// 遮蔽，重新声明x为6</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>常量的特性：<strong>全作用域可见</strong>：
+<ul>
+<li>常量不管在何处声明都会作用域整个作用域，因为编译器会将常量名替换成值。</li>
+<li>同一个作用域内不能有同名的常量，原因如上，会冲突。</li>
+<li>内层作用域可以<strong>遮蔽</strong>外层作用域的常量，因为编译器会先在当前作用域匹配，找不到才会去外层作用域找。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> VALUE: <span class="type">u32</span> = <span class="number">100_000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value is: &#123;&#125;&quot;</span>, VALUE);</span><br><span class="line">    <span class="keyword">const</span> VALUE: <span class="type">u32</span> = <span class="number">200_000</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> VALUE: <span class="type">u32</span> = <span class="number">300_000</span>;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;The value is: &#123;&#125;&quot;</span>, VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value is: &#123;&#125;&quot;</span>, VALUE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/weimoyo">lix</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://lixiang.us.kg/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">http://lixiang.us.kg/2025/07/10/Rust笔记（一）/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://lixiang.us.kg" target="_blank">Zone of Lix</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><a class="post-meta__tags" href="/tags/Rust/">Rust</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a></div><div class="post-share"><div class="addtoany"><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class="a2a_button_wechat"></a><a class="a2a_button_sina_weibo"></a><a class="a2a_button_x"></a><a class="a2a_button_copy_link"></a><a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a></div></div><script async="async" src="https://static.addtoany.com/menu/page.js"></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/07/07/neovim%E6%8F%92%E4%BB%B6%E8%AE%B0%E5%BD%95%E3%80%81%E7%94%A8%E6%B3%95/" title="neovim插件记录、用法"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">neovim插件记录、用法</div></div><div class="info-2"><div class="info-item-1">bullets-vim 功能：自动处理markdown中的列表序号。 快捷键：    按键 模式 功能     &lt;cr&gt; INSERT 换行并插入新的bullet   o NORMAL 效果同上。   &lt;C-cr&gt; INSERT 仅换行   gN NORMAL/VISUAL 对光标所在列表(或者所选中的部分)重排序   &gt;&gt; NORMAL 缩进（同时调整编号，下皆同）   &lt;C-t&gt; INSERT 缩进   &gt; ViSUAL 缩进   &lt;&lt; NORMAL 取消缩进   &lt;C-d&gt; INSERT 取消缩进   &lt; VISUAL 取消缩进    render-markdown 功能：文档超详细，配置非常简单的markdown渲染插件。建议用它替代:LazyExtra里的markdown模块。  标题图标、padding，高亮范围。 代码块、callouts、链接图标。 列表美化。 等等。  配置：详情见此链接 要想舒舒服服编辑markdown文档还需要关闭拼写检查。  lspsaga.nvim 功能：...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/06/20/neovim%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="🐆neovim使用笔记"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-20</div><div class="info-item-2">🐆neovim使用笔记</div></div><div class="info-2"><div class="info-item-1">🐆neovim使用笔记 光标移动  基础： h、j、k、l对应←↓↑→，gg、G跳转到文档头、尾。 word跳转： w、e跳转到后一个“word的开头、结尾”，b跳转到前一个“word的开头”。不含除_外的标点符号。 WORD跳转：W、E跳转到后一个“WORD的开头、结尾”，B跳转到前一个“WORD的开头”。“WORD”以空格为单位。 注：  “word”的描述很繁琐，但是含义很简单，故不多赘述。 以上快捷键都可以与数字搭配使用。 基础移动会以方向的尽头终止，如100l若超过该行剩余字符数则会移动到该行末尾。 但是，word跳转的语义是“上一个、下一个”，只要没有到文档头尾，就不会终止跳转。   根据字符跳转：f、F分别表示后一个字符、前一个字符（行内）。例如2fs表示跳转到后面第二个&quot;s&quot;的位置。  复制、粘贴、剪切   基础： y &lt;motion&gt;复制，d &lt;motion&gt;删除，c &lt;motion&gt;删除并进入插入模式，p、P在光标的右侧、左侧粘贴。     描述 成员     inclusive motion 仅有顺序...</div></div></div></a><a class="pagination-related" href="/2025/07/07/neovim%E6%8F%92%E4%BB%B6%E8%AE%B0%E5%BD%95%E3%80%81%E7%94%A8%E6%B3%95/" title="neovim插件记录、用法"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-07</div><div class="info-item-2">neovim插件记录、用法</div></div><div class="info-2"><div class="info-item-1">bullets-vim 功能：自动处理markdown中的列表序号。 快捷键：    按键 模式 功能     &lt;cr&gt; INSERT 换行并插入新的bullet   o NORMAL 效果同上。   &lt;C-cr&gt; INSERT 仅换行   gN NORMAL/VISUAL 对光标所在列表(或者所选中的部分)重排序   &gt;&gt; NORMAL 缩进（同时调整编号，下皆同）   &lt;C-t&gt; INSERT 缩进   &gt; ViSUAL 缩进   &lt;&lt; NORMAL 取消缩进   &lt;C-d&gt; INSERT 取消缩进   &lt; VISUAL 取消缩进    render-markdown 功能：文档超详细，配置非常简单的markdown渲染插件。建议用它替代:LazyExtra里的markdown模块。  标题图标、padding，高亮范围。 代码块、callouts、链接图标。 列表美化。 等等。  配置：详情见此链接 要想舒舒服服编辑markdown文档还需要关闭拼写检查。  lspsaga.nvim 功能：...</div></div></div></a><a class="pagination-related" href="/2025/06/26/neovim%E9%85%8D%E7%BD%AE/" title="neovim配置"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-26</div><div class="info-item-2">neovim配置</div></div><div class="info-2"><div class="info-item-1">前置 配置文件在哪 在neovim的命令模式输入:= vim.fn.stdpath(&quot;config&quot;)可以查看配置文件所在的目录，win下默认为~\AppData\Local\nvim\，在此目录下创建/修改主配置文件init.lua。 模块化配置 在init.lua的同级目录创建lua目录用以存放各个模块，继而使用require(&quot;module&quot;)引入名为module.lua的模块。 建议： 在lua下再细分，例如基础的配置放到lua/core/下，拓展的配置放到lua/plugins/，引入的时候使用require(&quot;core.module&quot;) 配置命令结构与一次性使用 大多数配置命令都在vim.opt.之下，可以在命令模式使用例如:lua vim.opt.number = true对当前会话生效。 配置项 行号 行号：vim.opt.number = true 相对行号，便于快捷移动光标：vim.opt.relativenumber = true 高亮、最大长度 vim.opt.cursorline = true ...</div></div></div></a><a class="pagination-related" href="/2025/07/07/pytest%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="pytest笔记（一）"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%99%BD%E5%8C%96%E8%9F%92%E8%9B%87.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-07</div><div class="info-item-2">pytest笔记（一）</div></div><div class="info-2"><div class="info-item-1">测试框架的作用  用例发现、管理、执行。 环境管理。 测试报告。  pytest对比unittest  需要手动安装、可以指定版本。 代码风格不是Java而是Python。 拥有更丰富的插件生态。 完全兼容unittest。  快速上手  安装：uv add pytest -U 启动方式：  创建一个新文件添加pytest.main()。 pytest：自动发现当前目录下的所有测试文件，执行所有测试用例。 pytest test_*.py：执行指定的测试文件。 pytest test_*.py::test_func：执行指定的测试函数。    用例   结果种类    缩写 单词 含义     . passed 通过   F failed 失败（用例执行报错）   E error 出错（fixture执行报错）   s skipped 跳过   X xpassed 预期外的通过（不符合预期）   x xfailed 预期内的失败（符合预期）      用例发现规则和内容规则  用例的发现规则——识别、加载用例的过程 步骤：  遍历当前目录及子目录下的所有文件，例外：venv、.*...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="utterances-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">lix</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/weimoyo" target="_blank" title="Github"><i class="fa-brands fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lx1753464614@gmail.com" target="_blank" title="Email"><i class="fa-solid fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本博客旨在个人记录，同时在互联网上留下痕迹。<br/>内容或有错误、不当之处，欢迎交流。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">开端</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8neovim%E9%87%8C%E9%85%8D%E7%BD%AERust%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.</span> <span class="toc-text">在neovim里配置Rust开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7%E6%8A%80%E5%B7%A7"><span class="toc-number">1.2.</span> <span class="toc-text">调试小技巧技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cargo"><span class="toc-number">1.3.</span> <span class="toc-text">Cargo</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">发展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.</span> <span class="toc-text">数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F"><span class="toc-number">2.1.1.</span> <span class="toc-text">变量与常量</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>系列文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="Rust笔记（一）"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rust笔记（一）"></a><div class="content"><a class="title" href="/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="Rust笔记（一）">Rust笔记（一）</a><time datetime="2025-07-10T01:56:50.000Z" title="发表于 2025-07-10 09:56:50">2025-07-10</time></div></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="Rust笔记（一）"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rust笔记（一）"/></a><div class="content"><a class="title" href="/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="Rust笔记（一）">Rust笔记（一）</a><time datetime="2025-07-10T01:56:50.000Z" title="发表于 2025-07-10 09:56:50">2025-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/07/neovim%E6%8F%92%E4%BB%B6%E8%AE%B0%E5%BD%95%E3%80%81%E7%94%A8%E6%B3%95/" title="neovim插件记录、用法"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="neovim插件记录、用法"/></a><div class="content"><a class="title" href="/2025/07/07/neovim%E6%8F%92%E4%BB%B6%E8%AE%B0%E5%BD%95%E3%80%81%E7%94%A8%E6%B3%95/" title="neovim插件记录、用法">neovim插件记录、用法</a><time datetime="2025-07-07T09:39:10.000Z" title="发表于 2025-07-07 17:39:10">2025-07-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/07/pytest%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="pytest笔记（一）"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%99%BD%E5%8C%96%E8%9F%92%E8%9B%87.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="pytest笔记（一）"/></a><div class="content"><a class="title" href="/2025/07/07/pytest%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="pytest笔记（一）">pytest笔记（一）</a><time datetime="2025-07-07T02:35:36.000Z" title="发表于 2025-07-07 10:35:36">2025-07-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/30/%E5%90%84%E7%B1%BB%E5%B0%8F%E5%B7%A5%E5%85%B7%EF%BC%88%E4%B8%80%EF%BC%89/" title="各类小工具（一）"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E8%90%BD%E6%97%A5%E5%AD%A4%E8%88%9F-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="各类小工具（一）"/></a><div class="content"><a class="title" href="/2025/06/30/%E5%90%84%E7%B1%BB%E5%B0%8F%E5%B7%A5%E5%85%B7%EF%BC%88%E4%B8%80%EF%BC%89/" title="各类小工具（一）">各类小工具（一）</a><time datetime="2025-06-30T06:04:45.000Z" title="发表于 2025-06-30 14:04:45">2025-06-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/26/%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E8%88%92%E6%9C%8D%E7%9A%84wsl%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="配置一个舒服的wsl开发环境"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%9C%BA%E6%9C%9B%E7%9A%84%E6%B0%B4%E7%8D%AD.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="配置一个舒服的wsl开发环境"/></a><div class="content"><a class="title" href="/2025/06/26/%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E8%88%92%E6%9C%8D%E7%9A%84wsl%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="配置一个舒服的wsl开发环境">配置一个舒服的wsl开发环境</a><time datetime="2025-06-26T06:28:45.000Z" title="发表于 2025-06-26 14:28:45">2025-06-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By lix</span></div><div class="footer_custom_text">页面可能有终点，生命没有终点。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+  const getUtterancesTheme = theme => theme === 'dark' ? 'github-dark-orange' : 'github-light'
+
+  const loadUtterances = (el = document, key) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyUtterances = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const config = {
+      src: 'https://utteranc.es/client.js',
+      repo: 'weimoyo/weimoyo.github.io',
+      theme: getUtterancesTheme(document.documentElement.getAttribute('data-theme')),
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      'issue-term': isShuoshuo ? key : (option && option['issue-term']) || 'pathname'
+    }
+
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => ele.setAttribute(key, value))
+    el.querySelector('#utterances-wrap').appendChild(ele)
+  }
+
+  const changeUtterancesTheme = theme => {
+    const iframe = document.querySelector('#utterances-wrap iframe')
+    if (iframe) {
+      const message = {
+        type: 'set-theme',
+        theme: getUtterancesTheme(theme)
+      };
+      iframe.contentWindow.postMessage(message, 'https://utteranc.es')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeUtterancesTheme, 'utterances')
+
+  if (isShuoshuo) {
+    'Utterances' === 'Utterances'
+      ? window.shuoshuoComment = { loadComment: loadUtterances }
+      : window.loadOtherComment = loadUtterances
+    return
+  }
+  
+  if ('Utterances' === 'Utterances' || !false) {
+    if (false) btf.loadComment(document.getElementById('utterances-wrap'), loadUtterances)
+    else loadUtterances()
+  } else {
+    window.loadOtherComment = loadUtterances
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

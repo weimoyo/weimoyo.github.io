@@ -1,0 +1,135 @@
+/* 新增样式 */
+.key-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #9b59b6;
+}
+
+.encrypt-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #e67e22;
+}
+
+.key-info {
+    background: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-family: monospace;
+    word-break: break-all;
+    display: none;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+textarea:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+#generateKeyBtn {
+    background: #9b59b6;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+#generateKeyBtn:hover {
+    background: #8e44ad;
+}
+
+#encryptBtn {
+    background: #e67e22;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+#encryptBtn:hover {
+    background: #d35400;
+}
+
+#decryptBtn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+#decryptBtn:hover {
+    background: #2980b9;
+}
+
+.result-box {
+    background: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    min-height: 150px;
+    overflow-wrap: break-word;
+    font-family: monospace;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.copy-btn {
+    background: #2c3e50;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.copy-btn:hover {
+    background: #1a2530;
+}
+
+.success {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.error {
+    color: #e74c3c;
+    font-weight: bold;
+}
