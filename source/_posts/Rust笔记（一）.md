@@ -7,7 +7,7 @@ cover: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png
 series: Rust笔记
 ---
 
-## 开端
+# 开端
 
 参考[Rust语言圣经(Rust Course)](https://course.rs/first-try/installation.html)
 {% note warning%}
@@ -53,7 +53,7 @@ return {
 }
 ```
 3. 配置Rust调试，参考[nvim-dap](https://github.com/mfussenegger/nvim-dap/wiki/C-C---Rust-(via--codelldb))
-具体配置如plugin\dap-rust.lua所示：
+具体配置如plugin\dap-rust.lua所示，需要修改codelldb.exe的路径：
 ```lua
 return {
   "mfussenegger/nvim-dap",
@@ -200,7 +200,30 @@ return {
 ```
 ## 调试小技巧技巧
 
+这些快捷键与我的配置有关。
 1. 不熟悉快捷键时可以pin一个快捷键截图。
 2. 善用`<C+方向键`调整窗口大小。
 3. `<leader>dK`可以查看光标位置的变量值。
 4. `<leader>dr`可以打开REPL，能够输入表达式并查看结果。
+
+## Cargo
+
+* cargo项目的主目录结构是有要求的
+  + `Cargo.toml`、`src/`在项目顶层。
+  + 源代码**全都**在`src/`目录下。
+  + 使用`cargo new <name>`命令创建新项目时，Cargo会自动创建`Cargo.toml`和`src/main.rs`文件。
+  + 也可以使用`cargo init <name>`命令在当前目录初始化Cargo项目。
+* `cargo build`命令会编译当前目录下的Cargo项目。
+  + 编译结果会放在`target/debug/`目录下。
+  + 同时会生成`cargo.lock`文件，记录依赖的版本信息。
+  + 如果需要编译成发布版本，编译器会对代码进行优化，编译时间更长，但执行更快，可以使用`cargo build --release`，结果会放在`target/release/`目录下。j
+* `cargo run`命令会**编译并运行**当前目录下的Cargo项目。
+  + 但是如果项目**没有修改**，Cargo会**跳过**编译步骤，直接运行上次编译的结果。
+* `cargo check`可以检查代码是否有错误，但不会生成可执行文件。
+  + 它比`cargo build`快很多，这对于**快速检查代码**很有用，尤其是在开发过程中。
+* `[dependencies]`，`rand = "0.9.1"`与`rand = "^0.9.1"`等价。
+  + `^`表示兼容版本，允许使用`0.9.x`版本。
+  + `~`表示兼容次版本，兼容范围可能与`^`一致或小一点。
+  + `=`表示精确版本，必须使用`0.9.1`。
+* `cargo update`命令会更新依赖到最新的兼容版本。
+  + 它会修改`Cargo.lock`文件，但不会修改`Cargo.toml`文件。
