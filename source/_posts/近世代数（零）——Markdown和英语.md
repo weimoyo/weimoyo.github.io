@@ -1,6 +1,6 @@
 ---
 title: 近世代数（零）——Markdown和英语
-date: 2025-08-24 17:16:16
+date: 2025-08-23 10:30:35
 categories: [笔记, 数学, 近世代数]
 tags: [近世代数, md语法, 英语]
 cover: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E7%8B%97%E7%8B%97.jpg
@@ -24,6 +24,9 @@ katex: true
     $\forall x, \exists y$   全称、存在  `$\forall x, \exists y$`
     $\land, \lor, \lnot$  与、或、非  `$\land, \lor, \lnot$`
     $\Rightarrow, \Leftrightarrow$  推导、等价  `$\Rightarrow, \Leftrightarrow$`
+    $\pm$  加减；正负  `$\pm$`
+    $a \mid b$  整除  `$a \mid b$`
+    $a \nmid b$  不整除  `$a \nmid b$`
 
 2. 群论
 
@@ -105,10 +108,13 @@ katex: true
 ### 单词
 
 1. 几何图形
-   1. **decagon** /ˈdekəgɑn/ 十边形
-   2. **equilateral** /ˌikwəˈlætərəl, ˌɛkwə-/ **triangle** 等边三角形
-   3. **hexagon** /'heksəɡənz/ 六边形
-   4. **polygon** /ˈpɒlɪɡɒn/ n. 多边形
-   5. **symmetry** /ˈsɪmətri/ n. 对称性
-   6. **asymmetry** /'æsɪmətri/ n. 非对称性
-2. 
+   1. **asymmetry** /'æsɪmətri/ n. 非对称性
+   2. **decagon** /ˈdekəgɑn/ n. 十边形
+   3. **diagonal** /daɪˈæɡənəl/ n. 对角线
+   4. **equilateral** /ˌikwəˈlætərəl, ˌɛkwə-/ **triangle** 等边三角形
+   5. **hexagon** /'heksəɡənz/ n.六边形
+   6. **permutation** /ˌpɜrmjuˈteɪʃn/ n. 排列
+   7. **polygon** /ˈpɒlɪɡɒn/ n. 多边形
+   8. **symmetry** /ˈsɪmətri/ n. 对称性
+2. 群论
+   1. **abelian** /ə'biːlɪən/ adj. 阿贝尔的，交换的
