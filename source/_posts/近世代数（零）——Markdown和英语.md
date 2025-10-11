@@ -28,6 +28,9 @@ $\pm$  加减；正负  `$\pm$`
 $a \mid b$  整除  `$a \mid b$`
 $a \nmid b$  不整除  `$a \nmid b$`
 
+$\sqrt[3]{x}$ 立方根  `\sqrt[3]{x}`
+$\sqrt[n]{x}$  n 次根  `\sqrt[n]{x}`
+
 ### 常见箭头符号对照表
 
 | 类型   | 写法        | 显示 | HTML 实体 |
