@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Rust笔记（二） | Zone of Lix</title><meta name="author" content="lix"><meta name="copyright" content="lix"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基本数据类型 整型 整型溢出 debug 模式会检查整型溢出，而 release 模式则不会。 显示处理溢出可以使用标准库对原始数字类型提供的方法：  wrapping_*：包装溢出，按照补码进行循环。 checked_*：检查溢出，返回 None 值。 overflowing_*：返回补码循环的值和一个指示是否溢出的布尔值。 saturating_*：饱和溢出，限定越界结果为最大值、最小值。 其">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rust笔记（二）">
+<meta property="og:url" content="http://lixiang.us.kg/2025/10/23/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="Zone of Lix">
+<meta property="og:description" content="基本数据类型 整型 整型溢出 debug 模式会检查整型溢出，而 release 模式则不会。 显示处理溢出可以使用标准库对原始数字类型提供的方法：  wrapping_*：包装溢出，按照补码进行循环。 checked_*：检查溢出，返回 None 值。 overflowing_*：返回补码循环的值和一个指示是否溢出的布尔值。 saturating_*：饱和溢出，限定越界结果为最大值、最小值。 其">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png">
+<meta property="article:published_time" content="2025-10-23T09:11:08.000Z">
+<meta property="article:modified_time" content="2025-10-29T02:48:04.334Z">
+<meta property="article:author" content="lix">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="编程语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Rust笔记（二）",
+  "url": "http://lixiang.us.kg/2025/10/23/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/",
+  "image": "https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png",
+  "datePublished": "2025-10-23T09:11:08.000Z",
+  "dateModified": "2025-10-29T02:48:04.334Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "lix",
+      "url": "https://github.com/weimoyo"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3.jpg"><link rel="canonical" href="http://lixiang.us.kg/2025/10/23/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="APsH-GEw4PI4YYUs1b1E_JDMlqWzgcOCra9o6YWPFdI"/><meta name="baidu-site-verification" content="codeva-PlF3y1zuff"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0f35df52836553679a874c3cb7af2f5a";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Rust笔记（二）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-color: #190d0c;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/todo/"><i class="fa-fw fas fa-tasks"></i><span> 事单</span></a></li><li><a class="site-page child" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/course/"><i class="fa-fw fas fa-chalkboard-teacher"></i><span> 课单</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zone of Lix</span></a><a class="nav-page-title" href="/"><span class="site-name">Rust笔记（二）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/todo/"><i class="fa-fw fas fa-tasks"></i><span> 事单</span></a></li><li><a class="site-page child" href="/book/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/course/"><i class="fa-fw fas fa-chalkboard-teacher"></i><span> 课单</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Rust笔记（二）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-23T09:11:08.000Z" title="发表于 2025-10-23 17:11:08">2025-10-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-29T02:48:04.334Z" title="更新于 2025-10-29 10:48:04">2025-10-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/Rust/">Rust</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;本文于&quot;,&quot;messageNext&quot;:&quot;天前最后一次更新，内容可能已经过时。&quot;,&quot;postUpdate&quot;:&quot;2025-10-29 10:48:04&quot;}" hidden></div><h2 id="基本数据类型">基本数据类型</h2>
+<h3 id="整型">整型</h3>
+<h4 id="整型溢出">整型溢出</h4>
+<p>debug 模式会检查整型溢出，而 release 模式则不会。</p>
+<p>显示处理溢出可以使用标准库对原始数字类型提供的方法：</p>
+<ul>
+<li><code>wrapping_*</code>：包装溢出，按照补码进行循环。</li>
+<li><code>checked_*</code>：检查溢出，返回 <code>None</code> 值。</li>
+<li><code>overflowing_*</code>：返回补码循环的值和一个指示是否溢出的布尔值。</li>
+<li><code>saturating_*</code>：饱和溢出，限定越界结果为最大值、最小值。<br>
+其中 <code>*</code> 表示具体的方法，包括 <code>add</code>， <code>sub</code>， <code>mul</code>， <code>div</code> 等。</li>
+</ul>
+<h3 id="浮点类型">浮点类型</h3>
+<p>Rust 中的浮点类型有两种：<code>f32</code> 和 <code>f64</code>，但是现在CPU中他俩的速度几乎相同，所以默认使用 <code>f64</code>。</p>
+<h4 id="浮点数陷阱">浮点数陷阱</h4>
+<p>因为计算机中的小数用二进制存储，有些在十进制中可以精确表示的数，在计算机中无法精确表示。例如，</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">  <span class="comment">// 断言0.1 + 0.2与0.3相等</span></span><br><span class="line">  <span class="built_in">assert!</span>(<span class="number">0.1</span> + <span class="number">0.2</span> == <span class="number">0.3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此断言会失败。如果一定要比较，可以使用 <code>(0.1_f64 + 0.2 - 0.3).abs() &lt; 0.00001</code> 来判断。</p>
+<h4 id="NaN-Not-a-Number">NaN (Not a Number)</h4>
+<ul>
+<li>数学上未定义的结果会返回 <code>NaN</code>，例如：<code>-42_f64.sqrt()</code> （注：<code>sqrt</code> 是 <code>f64</code> 的方法）。</li>
+<li><code>NaN</code> 不能用于比较，任何数与它比较时，除了<code>!=</code>，其它诸如 <code>==</code>、<code>&lt;</code>、<code>&gt;</code>、<code>&lt;=</code>、<code>&gt;=</code> 等，都会返回 <code>false</code>。</li>
+<li>可以使用 <code>is_nan()</code> 方法来检查一个数是否为 <code>NaN</code>，例如：<code>(-42_f64).sqrt().is_nan()</code>（注：<code>-</code> 运算符优先级低于 <code>.</code>，不加括号会导致错误结果）。</li>
+</ul>
+<h3 id="数字运算和位运算">数字运算和位运算</h3>
+<ul>
+<li><strong>数字运算</strong>包括加法（<code>+</code>）、减法（<code>-</code>）、乘法（<code>*</code>）、除法（<code>/</code>）和取模运算（<code>%</code>）。</li>
+<li><strong>位运算</strong>包括按位与（<code>&amp;</code>）、按位或（<code>|</code>）、按位异或（<code>^</code>）、按位取反（<code>!</code>）、左移（<code>&lt;&lt;</code>）和右移（<code>&gt;&gt;</code>）。</li>
+</ul>
+<p>其中，移位不应超过该整型的位数，否则会报错。因为超过超过位数的移位结果要么全0要么全1，不如直接写0或-1。</p>
+<h3 id="序列">序列</h3>
+<ul>
+<li>使用 <code>1..10</code> 可以生成一个从 1 到 9 的序列（不包含 10），或者使用 <code>1..=10</code> 生成一个从 1 到 10 的序列（包含 10）。</li>
+<li>序列只允许<strong>数字</strong>或者<strong>字符</strong>类型。</li>
+</ul>
+<h3 id="使用-As-进行类型转换">使用 <code>As</code> 进行类型转换</h3>
+<p>最常用于将一个基本类型转换为另一个，例如，</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">x</span>: <span class="type">i8</span> = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="variable">y</span>: <span class="type">i32</span> = x <span class="keyword">as</span> <span class="type">i32</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, y);</span><br></pre></td></tr></table></figure>
+<p>大到小可能会丢失数据。</p>
+<p>也可完成地址和指针之间的转换（暂略）。</p>
+<h3 id="有理数和复数">有理数和复数</h3>
+<p>以下数值并未包含在标准库内，但是可以使用 <code>num</code> 库来实现。</p>
+<ul>
+<li>有理数和复数</li>
+<li>任意大小的整数和任意精度的浮点数</li>
+<li>固定精度的十进制小数，常用于货币相关的场景</li>
+</ul>
+<p>一个复数的例子：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> num::complex::Complex;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = Complex &#123; re: <span class="number">2.1</span>, im: -<span class="number">1.2</span> &#125;;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = Complex::<span class="title function_ invoke__">new</span>(<span class="number">11.1</span>, <span class="number">22.2</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">result</span> = a + b;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125; + &#123;&#125;i&quot;</span>, result.re, result.im)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="字符类型（char）">字符类型（char）</h3>
+<ul>
+<li>Rust 的字符只能用 ‘’ 来表示， “” 是留给字符串的。</li>
+<li>Rust 的字符是 UTF-32 编码，每个字符占用 4 个字节（注：不同于字符串，字符串是 UTF-8 编码，每个字符占用 1~4 个字节）。</li>
+</ul>
+<h3 id="布尔类型（bool）">布尔类型（bool）</h3>
+<ul>
+<li>Rust 的布尔类型只有 <code>true</code> 和 <code>false</code> 两个值。</li>
+<li>每个布尔值占用 1 个字节。</li>
+</ul>
+<h3 id="单元类型（Unit）">单元类型（Unit）</h3>
+<ul>
+<li>Rust 的单元类型只有一个值 <code>()</code>，也被称为<strong>空元组</strong>（empty tuple）。</li>
+<li>任何没有显式声明返回值类型的函数，默认返回 <code>()</code>。</li>
+<li>每个 <code>()</code> 值占用 0 个字节。</li>
+<li>可以用作 <code>map</code> 的值，表示不关心具体值，只关心 <code>key</code>。</li>
+</ul>
+<h2 id="语句与表达式">语句与表达式</h2>
+<ul>
+<li><strong>语句（statement）</strong>：不返回值。</li>
+<li><strong>表达式（expression）</strong>：返回值，不包含分号。</li>
+</ul>
+<h2 id="函数">函数</h2>
+<ul>
+<li>函数名和变量名使用<strong>蛇形命名法</strong>(snake case)，例如 <code>fn add_two() &#123;&#125;</code></li>
+<li>函数的位置可以随便放， Rust 不关心我们在哪里定义了函数，只要有定义即可</li>
+<li>每个函数参数都需要<strong>标注类型</strong>，例如 <code>fn add_two(a: i32, b: i32) -&gt; i32 &#123;&#125;</code></li>
+</ul>
+<p>例：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">add</span>(i: <span class="type">i32</span>, j: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">   i + j</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="返回值">返回值</h3>
+<p>返回值要与类型匹配，可以在函数结尾使用表达式返回，也可以使用 <code>return</code> 语句提前返回。</p>
+<h4 id="永不返回的发散函数">永不返回的发散函数 !</h4>
+<p>当用 <code>!</code> 作函数返回类型的时候，表示该函数永不返回，也就是发散函数（diverging functions），用作特殊情况。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/weimoyo">lix</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://lixiang.us.kg/2025/10/23/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/">http://lixiang.us.kg/2025/10/23/Rust笔记（二）/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://lixiang.us.kg" target="_blank">Zone of Lix</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a><a class="post-meta__tags" href="/tags/Rust/">Rust</a><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></div><div class="post-share"><div class="addtoany"><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class="a2a_button_wechat"></a><a class="a2a_button_sina_weibo"></a><a class="a2a_button_x"></a><a class="a2a_button_copy_link"></a><a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a></div></div><script async="async" src="https://static.addtoany.com/menu/page.js"></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/10/29/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" title="Rust笔记（三）"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Rust笔记（三）</div></div><div class="info-2"><div class="info-item-1">所有权和借用 所有权 所有权是用来进行内存管理，使得编译器可以在编译时根据一系列规则来确保内存安全。 所有权原则  Rust 中每一个值都被一个变量所拥有。 一个值同时只能被一个变量所拥有。 当变量离开作用范围时，这个值也会被销毁。  拷贝与移动（move） 深拷贝 Rust 不会自动创建数据的深拷贝，需要使用 clone 方法来创建一个值的深拷贝。 例如 12let s1 = String::from(&quot;hello&quot;);let s2 = s1.clone(); 浅拷贝 浅拷贝只发生在栈上，实现了 Copy 特征的类型在赋值的时候都会执行浅拷贝。一个基本的规则是：任何基本类型的组合都可以 Copy，不需要分配内存或者某种形式资源的类型也是可以 Copy 的。 包括，  所有整数类型 布尔类型 所有浮点数类型 字符类型 元组类型（如果元组中的所有元素都是 Copy 类型） 不可变引用类型 &amp;T ，但是可变引用类型不可以 Copy 。  Tips  as_ 系列方法可以将一个类型转换为另一个类型，但是不会改变值的所有权。 例如  12let s = Str...</div></div></div></a><a class="pagination-related" href="/2025/10/22/How-to-improve-my-programming-skill/" title="How to improve my programming skill?"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B8%8A%E6%B5%B7%E5%A4%96%E6%BB%A9-%E4%B8%8A%E6%B5%B7%E5%A4%9C%E6%99%AF.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">How to improve my programming skill?</div></div><div class="info-2"><div class="info-item-1">Path To Programming Master 1. Novice Fully understand and memorize the basic concepts and syntax of the programming language. 2. Proficient  Implement classic algorithms and data structures. Complete programming projects independently, following the best practices - not just step-by-step instructions.  3. Master Design and build new programming projects entirely on my own. </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/29/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" title="Rust笔记（三）"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-29</div><div class="info-item-2">Rust笔记（三）</div></div><div class="info-2"><div class="info-item-1">所有权和借用 所有权 所有权是用来进行内存管理，使得编译器可以在编译时根据一系列规则来确保内存安全。 所有权原则  Rust 中每一个值都被一个变量所拥有。 一个值同时只能被一个变量所拥有。 当变量离开作用范围时，这个值也会被销毁。  拷贝与移动（move） 深拷贝 Rust 不会自动创建数据的深拷贝，需要使用 clone 方法来创建一个值的深拷贝。 例如 12let s1 = String::from(&quot;hello&quot;);let s2 = s1.clone(); 浅拷贝 浅拷贝只发生在栈上，实现了 Copy 特征的类型在赋值的时候都会执行浅拷贝。一个基本的规则是：任何基本类型的组合都可以 Copy，不需要分配内存或者某种形式资源的类型也是可以 Copy 的。 包括，  所有整数类型 布尔类型 所有浮点数类型 字符类型 元组类型（如果元组中的所有元素都是 Copy 类型） 不可变引用类型 &amp;T ，但是可变引用类型不可以 Copy 。  Tips  as_ 系列方法可以将一个类型转换为另一个类型，但是不会改变值的所有权。 例如  12let s = Str...</div></div></div></a><a class="pagination-related" href="/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="Rust笔记（一）"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-10</div><div class="info-item-2">Rust笔记（一）</div></div><div class="info-2"><div class="info-item-1">开端 参考Rust语言圣经(Rust Course) Windows上的Rust有两个版本MSVC和GNU，这里涉及到Microsoft C++ Build Tools(对应于MSVC版本，官方推荐)安装c++环境，或者MSYS2(对应于GNU版本)安装c++环境。  其它安装的细节，以及在其它系统上的安装方式，请仔细阅读以上参考文档。 可以使用命令rustup doc查看文档。 在neovim里配置Rust开发环境  安装rust-analyzer，这是Rust的LSP，需要对&quot;neovim/nvim-lspconfig&quot;进行配置。 安装&quot;saecki/crates.nvim&quot;插件，这个插件用来提供依赖信息的增强支持。 以上两者的配置如下plugins\lsp.lua所示：  1234567891011121314151617181920212223242526272829return &#123;  &#123;    &quot;neovim/nvim-lspconfig&quot;,    opts = &#123;      in...</div></div></div></a><a class="pagination-related" href="/2025/10/22/How-to-improve-my-programming-skill/" title="How to improve my programming skill?"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B8%8A%E6%B5%B7%E5%A4%96%E6%BB%A9-%E4%B8%8A%E6%B5%B7%E5%A4%9C%E6%99%AF.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-22</div><div class="info-item-2">How to improve my programming skill?</div></div><div class="info-2"><div class="info-item-1">Path To Programming Master 1. Novice Fully understand and memorize the basic concepts and syntax of the programming language. 2. Proficient  Implement classic algorithms and data structures. Complete programming projects independently, following the best practices - not just step-by-step instructions.  3. Master Design and build new programming projects entirely on my own. </div></div></div></a><a class="pagination-related" href="/2025/10/08/Secutity%20Basics_Chapter%201/" title="Secutity Basics: Chapter 1"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%9D%A1%E4%B8%8A%E9%A9%AC.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-08</div><div class="info-item-2">Secutity Basics: Chapter 1</div></div><div class="info-2"><div class="info-item-1">Binary File Compiling Process The compilation process can be divided into five main stages:  Lexical analysis Syntax analysis Semantic analysis Intermediate code generation Code optimization and generation  Compilation Procedure Using GCC  Preprocessing: Use the -E option to preprocess the source code. This step expands macros, removes comments, and includes header files. Compilation: Use the -S option to compile the source code or preprocessed code to assembly language (.s file). Assembling:...</div></div></div></a><a class="pagination-related" href="/2025/06/26/neovim%E9%85%8D%E7%BD%AE/" title="neovim配置"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-26</div><div class="info-item-2">neovim配置</div></div><div class="info-2"><div class="info-item-1">前置 配置文件在哪 在neovim的命令模式输入:= vim.fn.stdpath(&quot;config&quot;)可以查看配置文件所在的目录，win下默认为~\AppData\Local\nvim\，在此目录下创建/修改主配置文件init.lua。 模块化配置 在init.lua的同级目录创建lua目录用以存放各个模块，继而使用require(&quot;module&quot;)引入名为module.lua的模块。 建议： 在lua下再细分，例如基础的配置放到lua/core/下，拓展的配置放到lua/plugins/，引入的时候使用require(&quot;core.module&quot;) 配置命令结构与一次性使用 大多数配置命令都在vim.opt.之下，可以在命令模式使用例如:lua vim.opt.number = true对当前会话生效。 配置项 行号 行号：vim.opt.number = true 相对行号，便于快捷移动光标：vim.opt.relativenumber = true 高亮、最大长度 vim.opt.cursorline = true ...</div></div></div></a><a class="pagination-related" href="/2025/07/07/neovim%E6%8F%92%E4%BB%B6%E8%AE%B0%E5%BD%95%E3%80%81%E7%94%A8%E6%B3%95/" title="neovim插件记录、用法"><img class="cover" src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%A5%94%E8%B7%91%E7%9A%84%E7%8C%8E%E8%B1%B9.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-07</div><div class="info-item-2">neovim插件记录、用法</div></div><div class="info-2"><div class="info-item-1">bullets-vim 功能：自动处理markdown中的列表序号。 快捷键：    按键 模式 功能     &lt;cr&gt; INSERT 换行并插入新的bullet   o NORMAL 效果同上。   &lt;C-cr&gt; INSERT 仅换行   gN NORMAL/VISUAL 对光标所在列表(或者所选中的部分)重排序   &gt;&gt; NORMAL 缩进（同时调整编号，下皆同）   &lt;C-t&gt; INSERT 缩进   &gt; ViSUAL 缩进   &lt;&lt; NORMAL 取消缩进   &lt;C-d&gt; INSERT 取消缩进   &lt; VISUAL 取消缩进    render-markdown 功能：文档超详细，配置非常简单的markdown渲染插件。建议用它替代:LazyExtra里的markdown模块。  标题图标、padding，高亮范围。 代码块、callouts、链接图标。 列表美化。 等等。  配置：详情见此链接 要想舒舒服服编辑markdown文档还需要关闭拼写检查。  lspsaga.nvim 功能：...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="utterances-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">lix</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/weimoyo" target="_blank" title="Github"><i class="fa-brands fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lx1753464614@gmail.com" target="_blank" title="Email"><i class="fa-solid fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本博客旨在个人记录，同时在互联网上留下痕迹。<br/>内容或有错误、不当之处，欢迎交流。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">基本数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">整型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E5%9E%8B%E6%BA%A2%E5%87%BA"><span class="toc-number">1.1.1.</span> <span class="toc-text">整型溢出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">浮点类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E9%99%B7%E9%98%B1"><span class="toc-number">1.2.1.</span> <span class="toc-text">浮点数陷阱</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NaN-Not-a-Number"><span class="toc-number">1.2.2.</span> <span class="toc-text">NaN (Not a Number)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%BF%90%E7%AE%97%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-number">1.3.</span> <span class="toc-text">数字运算和位运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%8F%E5%88%97"><span class="toc-number">1.4.</span> <span class="toc-text">序列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-As-%E8%BF%9B%E8%A1%8C%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.5.</span> <span class="toc-text">使用 As 进行类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E7%90%86%E6%95%B0%E5%92%8C%E5%A4%8D%E6%95%B0"><span class="toc-number">1.6.</span> <span class="toc-text">有理数和复数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B%EF%BC%88char%EF%BC%89"><span class="toc-number">1.7.</span> <span class="toc-text">字符类型（char）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%EF%BC%88bool%EF%BC%89"><span class="toc-number">1.8.</span> <span class="toc-text">布尔类型（bool）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E5%85%83%E7%B1%BB%E5%9E%8B%EF%BC%88Unit%EF%BC%89"><span class="toc-number">1.9.</span> <span class="toc-text">单元类型（Unit）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">语句与表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">3.1.</span> <span class="toc-text">返回值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B8%E4%B8%8D%E8%BF%94%E5%9B%9E%E7%9A%84%E5%8F%91%E6%95%A3%E5%87%BD%E6%95%B0"><span class="toc-number">3.1.1.</span> <span class="toc-text">永不返回的发散函数 !</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>系列文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/10/29/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" title="Rust笔记（三）"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rust笔记（三）"></a><div class="content"><a class="title" href="/2025/10/29/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" title="Rust笔记（三）">Rust笔记（三）</a><time datetime="2025-10-29T02:37:16.000Z" title="发表于 2025-10-29 10:37:16">2025-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/23/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Rust笔记（二）"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rust笔记（二）"></a><div class="content"><a class="title" href="/2025/10/23/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Rust笔记（二）">Rust笔记（二）</a><time datetime="2025-10-23T09:11:08.000Z" title="发表于 2025-10-23 17:11:08">2025-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="Rust笔记（一）"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rust笔记（一）"></a><div class="content"><a class="title" href="/2025/07/10/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="Rust笔记（一）">Rust笔记（一）</a><time datetime="2025-07-10T01:56:50.000Z" title="发表于 2025-07-10 09:56:50">2025-07-10</time></div></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/10/29/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" title="Rust笔记（三）"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rust笔记（三）"/></a><div class="content"><a class="title" href="/2025/10/29/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" title="Rust笔记（三）">Rust笔记（三）</a><time datetime="2025-10-29T02:37:16.000Z" title="发表于 2025-10-29 10:37:16">2025-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/23/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Rust笔记（二）"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rust笔记（二）"/></a><div class="content"><a class="title" href="/2025/10/23/Rust%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Rust笔记（二）">Rust笔记（二）</a><time datetime="2025-10-23T09:11:08.000Z" title="发表于 2025-10-23 17:11:08">2025-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/22/How-to-improve-my-programming-skill/" title="How to improve my programming skill?"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B8%8A%E6%B5%B7%E5%A4%96%E6%BB%A9-%E4%B8%8A%E6%B5%B7%E5%A4%9C%E6%99%AF.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="How to improve my programming skill?"/></a><div class="content"><a class="title" href="/2025/10/22/How-to-improve-my-programming-skill/" title="How to improve my programming skill?">How to improve my programming skill?</a><time datetime="2025-10-22T01:28:33.000Z" title="发表于 2025-10-22 09:28:33">2025-10-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/08/Secutity%20Basics_Chapter%201/" title="Secutity Basics: Chapter 1"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%9D%A1%E4%B8%8A%E9%A9%AC.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Secutity Basics: Chapter 1"/></a><div class="content"><a class="title" href="/2025/10/08/Secutity%20Basics_Chapter%201/" title="Secutity Basics: Chapter 1">Secutity Basics: Chapter 1</a><time datetime="2025-10-08T05:42:15.000Z" title="发表于 2025-10-08 13:42:15">2025-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/22/%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94AFL++%E8%B0%83%E7%A0%94%E8%AE%B0%E5%BD%95/" title="模糊测试（一）——AFL++调研记录"><img src="https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%9D%A1%E4%B8%8A%E9%A9%AC.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="模糊测试（一）——AFL++调研记录"/></a><div class="content"><a class="title" href="/2025/09/22/%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94AFL++%E8%B0%83%E7%A0%94%E8%AE%B0%E5%BD%95/" title="模糊测试（一）——AFL++调研记录">模糊测试（一）——AFL++调研记录</a><time datetime="2025-09-22T01:54:01.000Z" title="发表于 2025-09-22 09:54:01">2025-09-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/Rust-Ferris.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By lix</span></div><div class="footer_custom_text">页面可能有终点，生命没有终点。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+  const getUtterancesTheme = theme => theme === 'dark' ? 'github-dark-orange' : 'github-light'
+
+  const loadUtterances = (el = document, key) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyUtterances = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const config = {
+      src: 'https://utteranc.es/client.js',
+      repo: 'weimoyo/weimoyo.github.io',
+      theme: getUtterancesTheme(document.documentElement.getAttribute('data-theme')),
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      'issue-term': isShuoshuo ? key : (option && option['issue-term']) || 'pathname'
+    }
+
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => ele.setAttribute(key, value))
+    el.querySelector('#utterances-wrap').appendChild(ele)
+  }
+
+  const changeUtterancesTheme = theme => {
+    const iframe = document.querySelector('#utterances-wrap iframe')
+    if (iframe) {
+      const message = {
+        type: 'set-theme',
+        theme: getUtterancesTheme(theme)
+      };
+      iframe.contentWindow.postMessage(message, 'https://utteranc.es')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeUtterancesTheme, 'utterances')
+
+  if (isShuoshuo) {
+    'Utterances' === 'Utterances'
+      ? window.shuoshuoComment = { loadComment: loadUtterances }
+      : window.loadOtherComment = loadUtterances
+    return
+  }
+  
+  if ('Utterances' === 'Utterances' || !false) {
+    if (false) btf.loadComment(document.getElementById('utterances-wrap'), loadUtterances)
+    else loadUtterances()
+  } else {
+    window.loadOtherComment = loadUtterances
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
