@@ -266,3 +266,110 @@ let x = 6; // 遮蔽，重新声明x为6
       println!("The value is: {}", VALUE);
   }
   ```
+
+#### 下划线标记未使用的变量
+
+未使用的变量往往意味着潜在的 bug ，可以使用开头的下划线告诉编译器允许变量未使用，例如：
+```rust
+fn main() {
+    let _x = 5;
+    let y = 10;
+}
+```
+这里`_x`被标记为未使用，编译器不会报错，而`y`会报错。
+
+或者使用编译器属性（attribute）`#[allow(unused_variables)]`来关闭对未使用变量的警告。
+
+#### 变量解构
+
+赋值语句左边可以使用元组、切片和结构体进行解构，例如：
+```rust
+struct Struct {
+    e: i32
+}
+
+fn main() {
+    // 元组内的变量可以单独设置`mut`与否
+    let (x, mut y): (bool,bool) = (true, false);
+    // 没有下面这条会警告，因为变量初始化后应该使用后再修改，否则声明和初始化可以分开
+    assert_eq!((x, y), (true, false));
+    // 没有下面这条会警告，因为声明为`mut`的变量，就需要修改，否则声明为不可变即可
+    y = true;
+    assert_eq!((x, y), (true, true));
+
+    let (a, b, c, d, e);
+    (a, b) = (1, 2);
+    // ...代表略过一些值，_ 代表匹配一个我们不关心的值
+    [c, .., d, _] = [1, 2, 3, 4, 5];
+    Struct { e, .. } = Struct { e: 5 };
+    assert_eq!([1, 2, 1, 4, 5], [a, b, c, d, e]);
+    
+    // 右侧的值需要覆盖左边的变量，下面的语句会报错
+    // let (i, mut j): (bool, bool) = (true);
+    // j = true;
+    // assert_eq!((i, j), (true, true));
+}
+```
+
+#### 变量遮蔽
+
+Rust 允许声明相同的变量名，在后面声明的变量会遮蔽掉前面声明的。
+
+
+## 补充
+
+### 宏(macro)
+
+The suffix `!` is used to mark something as a macro invocation, not a function call. A macro will be replaced by the compiler with the Rust code it generates.
+
+For example:
+
+```rust
+print!("Hello, world!");
+```
+
+This is a macro call, not a function call. The compiler expands it into an expression that performs text formatting, writes to standard output, and handles potential I/O errors.
+
+#### Two major systems to define macros
+
+1. **Declarative macros** (defined using macro_rules!)
+
+```rust
+macro_rules! say_hello {
+    ($a: expr) => {
+        println!("Hello, world of {}!", $a);
+    };
+}
+
+fn main() {
+    say_hello!("Rust"); // expands to println!("Hello, world of Rust!");
+}
+```
+
+Common fragment specifiers (which define matchable code types):
+
+|Specifier  |  Matches                            | 
+|-----------|-------------------------------------|
+|`ident`    |  Identifiers (e.g., variable names) |
+|`expr`     |  Expressions                        |
+|`ty`       |  Types                              |
+|`pat`      |  Patterns                           |
+|`block`    |  Code blocks{ ... }                 |
+|`item`     |  Items like functions or structs    |
+|`path`     |  Paths (foo::bar)                   |
+|`tt`       |  Token trees (raw tokens)           |
+|`meta`     |  Metadata inside attributes (#[...])|
+
+2. **Procedural macros**
+{% note warning %}
+WARNING: I don't understand it now
+{% endnote %}
+Procedural macros are more advanced and work at the token-stream level rather than pattern matching. They let you manipulate the abstract syntax tree (AST) of the Rust code directly.
+
+They come in three forms:
+
+|Type                  |  Description                                                    |  Example             | 
+|----------------------|-----------------------------------------------------------------|----------------------|
+|Function-like macros  |  Called like functions with!syntax.                             |  `custom_macro!(...)`|
+|Derive macros         |  Used with`#[derive(...)]`for implementing traits automatically.|  `#[derive(Debug)]`  |
+|Attribute macros      |  Custom attributes applied to functions or modules.             |  `#[route(GET, "/")]`|

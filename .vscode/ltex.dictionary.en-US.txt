@@ -3,3 +3,4 @@ ASan
 UBSan
 TSan
 Uninitialized
+bool
