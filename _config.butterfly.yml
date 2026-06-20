@@ -61,7 +61,7 @@ social:
 favicon: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3.jpg
 
 avatar:
-  img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E5%B0%8F%E5%A4%AA%E9%98%B3-%E5%9C%86.png
+  img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/f8958089a27aecee05c158cb89bb98f7.jpg
   effect: true
 
 # Disable all banner images
@@ -71,7 +71,7 @@ disable_top_img: false
 default_top_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E6%82%A0%E7%84%B6%E5%B0%8F%E8%88%B9.jpg
 
 # The banner image of index page
-index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E8%8A%B1%E8%8B%9E%E4%B8%8A%E7%9A%84%E9%B9%A6%E9%B9%89.jpg
+index_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/de82b7b975030073ae683c489c81e818.jpg
 
 # The banner image of archive page
 archive_img: https://pub-85c6ace1f3f74dfdbd0f332fbb2c2f97.r2.dev/PicGo/%E7%8A%B9%E8%B1%AB%E5%B0%8F%E7%86%8A%E7%8C%AB.jpg
@@ -910,7 +910,7 @@ clickShowText:
 # https://github.com/francoischalifour/medium-zoom
 # https://fancyapps.com/fancybox/
 # Leave it empty if you don't need lightbox
-lightbox:
+lightbox: fancybox
 
 # --------------------------------------
 # Tag Plugins settings
